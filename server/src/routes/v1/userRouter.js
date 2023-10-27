@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const LogInUser = require('./handlers/logInUser');
+const logInUser = require('./handlers/logInUser');
 const registerUser = require('./handlers/registerUser');
 const confirmUser = require('./handlers/confirmUser');
 
@@ -20,7 +20,7 @@ UserRouter.post('/', registerUser);
     //? Confirm account for user registered
 UserRouter.post('/:tokenId', confirmUser);
     //? Log In user
-UserRouter.get('/login', LogInUser);
+UserRouter.get('/login', logInUser);
 
 //? Export router
 module.exports = UserRouter;

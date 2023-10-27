@@ -8,7 +8,17 @@ module.exports = async function(req,res){
     try {
         //* Get Values
         const { namecompany, eslogan, phone, email, password } = req.body;
-        
+
+        //* Is exist all properties
+        const emptyValuesValidation = Object.entries({
+            namecompany, eslogan,
+            phone, email,
+            password
+        }).some(([,v]) => !v);
+        if(emptyValuesValidation){
+            throw CustomErrors.EmptyError('Completa todos los requisitos para el registro');
+        };
+
         //* validate email format
         const validateEmail = validations.email(email);
         if(!validateEmail){

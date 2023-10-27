@@ -1,11 +1,17 @@
-const {v4: uuidv4} = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
-const { DataTypes } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
 const CustomErrors = require('../utils/errors/CustomErrors');
 
+//! Generate model to create custom methods
+class User extends Model{
+    comparePassword(passwordToCompare){
+        return bcrypt.compareSync(passwordToCompare, this.password);
+    };
+};
+
 module.exports = function(database){
-    
-    database.define('User', {
+    User.init({
         id:{
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -77,6 +83,9 @@ module.exports = function(database){
             type: DataTypes.BOOLEAN,
             defaultValue: false
         }
+    }, {
+        sequelize: database,
+        modelName: 'User'
     });
 
 };

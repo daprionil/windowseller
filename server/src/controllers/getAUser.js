@@ -9,13 +9,11 @@ const GetAUser = async function({
     phone,
     email,
     token,
-    password
 }){
     //? Clear empty properties
     const allDataEmptyValidation = clearEmptyProperties({
         id, namecompany, eslogan,
-        description, phone, email,
-        token, password
+        description, phone, email,token,
     });
     
     //? Find user with properties

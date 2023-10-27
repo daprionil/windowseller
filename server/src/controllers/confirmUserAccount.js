@@ -8,8 +8,9 @@ module.exports = async function({token}){
             token
         }
     });
+    
     if(!userExist){
-        throw CustomErrors.EmptyError('El token ha caducado o no existe');
+        throw CustomErrors.EmptyError('El token ha caducado');
     }
     
     //? Change values to user register
