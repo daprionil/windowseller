@@ -6,7 +6,7 @@ const PORT = process.env.PORT_SERVER || 3000;
 
 //! Starts app
 //* Generate connection to db
-conndb.sync({force: true})
+conndb.sync({alter: true})
     .then(() => {
         console.log('----- Connection database was successfully -----');
         

@@ -8,6 +8,9 @@ module.exports = async function(req,res){
          * *5. Generar token JWT
          * *6. Retornar respuesta
          */
+        const { password, email } = req.body;
+
+        res.json({user:{name:'eso'}});
     } catch ({message}) {
         res.json({error: message})
     }

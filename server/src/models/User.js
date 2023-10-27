@@ -1,6 +1,7 @@
 const {v4: uuidv4} = require('uuid');
 const bcrypt = require('bcrypt');
 const { DataTypes } = require("sequelize");
+const CustomErrors = require('../utils/errors/CustomErrors');
 
 module.exports = function(database){
     
@@ -23,7 +24,10 @@ module.exports = function(database){
         },
         eslogan:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate:{
+                len:[5, 150],
+            },
         },
         description:{
             type: DataTypes.TEXT,
@@ -33,10 +37,15 @@ module.exports = function(database){
             }
         },
         phone:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             unique: true,
+            allowNull: false,
             validate:{
-                isNumeric: true,
+                isNumeric: (value) => {
+                    if(isNaN(Number(value))){
+                        throw CustomErrors.SintaxError('El teléfono no es válido')
+                    }
+                }
             }
         },
         email:{
@@ -50,12 +59,12 @@ module.exports = function(database){
         token:{
             type: DataTypes.STRING,
             defaultValue: '',
-            allowNull: false,
         },
         password:{
             type: DataTypes.STRING,
             allowNull: false,
             set(value){
+                //!############# ENCRYPT PASSWORD CHANGES ############
                 const password = bcrypt.hashSync(value, 4);
                 this.setDataValue('password', password);
             }
