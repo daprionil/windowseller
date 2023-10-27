@@ -1,4 +1,4 @@
-const GetAUser = require("../../../controllers/GetAUser.js");
+const getAUser = require("../../../controllers/getAUser.js");
 const createUser = require("../../../controllers/createUser.js");
 const CustomErrors = require("../../../utils/errors/CustomErrors.js");
 const { valuesErrorsFormFields } = require("../../../utils/validationFormFields.js");
@@ -21,13 +21,13 @@ module.exports = async function(req,res){
         };
 
         //* confirm if exist other user with that email
-        const isExistUserWithEmail = await GetAUser({ email });
+        const isExistUserWithEmail = await getAUser({ email });
         if(isExistUserWithEmail){
             throw CustomErrors.EmptyError('Ya existe un usuario con este email');
         };
 
         //* confirm if exist other user with that phone
-        const isExistUserWithPhone = await GetAUser({ phone });
+        const isExistUserWithPhone = await getAUser({ phone });
         if(isExistUserWithPhone){
             throw CustomErrors.EmptyError('Ya existe un usuario con este teléfono')
         };

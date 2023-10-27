@@ -1,5 +1,5 @@
 const { User } = require('../database.js');
-const ClearEmptyProperties = require('../utils/ClearEmptyProperties');
+const clearEmptyProperties = require('../utils/clearEmptyProperties.js');
 
 const GetAUser = async function({
     id,
@@ -12,7 +12,7 @@ const GetAUser = async function({
     password
 }){
     //? Clear empty properties
-    const allDataEmptyValidation = ClearEmptyProperties({
+    const allDataEmptyValidation = clearEmptyProperties({
         id, namecompany, eslogan,
         description, phone, email,
         token, password
