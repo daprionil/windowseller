@@ -18,12 +18,7 @@ const GetAUser = async function({
     
     //? Find user with properties
     const user = await User.findOne({
-        where: allDataEmptyValidation,
-        attributes:{
-            exclude: [
-                'password'
-            ]
-        }
+        where: allDataEmptyValidation
     });
 
     return user;

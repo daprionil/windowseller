@@ -1,10 +1,13 @@
 const getUserByPk = require("./getUserByPk")
 
 module.exports = async function({userId, password}){
+    //? Find user
     const user = await getUserByPk(userId);
     
+    //? Set values from proccess
     user.password = password;
+    user.token = null;
 
-    const savedUser = await user.save();
-    console.log(savedUser);
+    //? Save changes
+    await user.save();
 };

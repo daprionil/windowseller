@@ -24,7 +24,7 @@ const UserRouter = Router();
 UserRouter.post('/changepassword', changeToPassword);
 UserRouter.route('/changepassword/:tokenId')
             .get(validateToken)//? Request the validation for one token to change Password
-            .post(putChangePasswordUser)//? Update user with new password
+            .put(putChangePasswordUser)//? Update user with new password
 
 //*##################################
 

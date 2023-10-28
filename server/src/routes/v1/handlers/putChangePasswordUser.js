@@ -15,10 +15,10 @@ module.exports = async function(req,res){
             throw CustomErrors.SintaxError('No es un token válido');
         };
         
-        //? Validate password
+        //? Validate password format
         const passwordValidation = validations.password(password);
         if(!password.trim() || !passwordValidation){
-            throw CustomErrors.SintaxError('La contraseña no es válida');
+            throw CustomErrors.SintaxError('La contraseña no es válida, Ej: passWORD23?#');
         };
 
         //? Validate if exist one user with that token
@@ -27,10 +27,17 @@ module.exports = async function(req,res){
             throw CustomErrors.EmptyError('Token no válido o Caducado');
         };
 
-        //? The user will be edit with the new password and clear token
-        const userSaved = await changePasswordUser({ userId: existUser.id, password });
+        //? Validate if the password to change is different from the current one
+        const passwordCurrentValidation = existUser.comparePassword(password);
+        if(passwordCurrentValidation){
+            throw CustomErrors.SintaxError('La nueva contraseña no es válida, escribe una diferente')
+        };
 
-        res.send('Editada');
+        //? The user will be edited with the new password and the token will be deleted
+        await changePasswordUser({ userId: existUser.id, password });
+        
+        //? Response with json info
+        res.json({changed: true});
     } catch ({status, message}) {
         res.status(status).json({error: message});
     };
