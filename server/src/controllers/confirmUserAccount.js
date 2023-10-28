@@ -17,7 +17,6 @@ module.exports = async function({token}){
     userExist.confirm = true;
     userExist.token = null;
 
-    const savedUser = await userExist.save();
-
-    return savedUser?.dataValues;
+    //? Save changes of user
+    await userExist.save();
 };
