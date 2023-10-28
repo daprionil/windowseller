@@ -5,7 +5,7 @@ const generateJWT = require("../../../utils/generateJWT.js");
 module.exports = async function(req,res){
     try {
         const { password, email } = req.body;
-
+        
         //! Validate empty values
         if(!password || !email){
             throw CustomErrors.EmptyError('No se encuentran todos los requisitos para la solicitud');

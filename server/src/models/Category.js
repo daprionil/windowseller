@@ -11,5 +11,7 @@ module.exports = function(database){
             type: DataTypes.STRING(45),
             allowNull: false
         }
+    }, {
+        timestamps: false
     })
 }

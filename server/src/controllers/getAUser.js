@@ -13,12 +13,17 @@ const GetAUser = async function({
     //? Clear empty properties
     const allDataEmptyValidation = clearEmptyProperties({
         id, namecompany, eslogan,
-        description, phone, email,token,
+        description, phone, email, token,
     });
     
     //? Find user with properties
     const user = await User.findOne({
-        where: allDataEmptyValidation
+        where: allDataEmptyValidation,
+        attributes:{
+            exclude: [
+                'password'
+            ]
+        }
     });
 
     return user;

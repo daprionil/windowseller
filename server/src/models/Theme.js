@@ -32,5 +32,7 @@ module.exports = function(database){
             type: DataTypes.STRING(15),
             allowNull: false
         }
+    }, {
+        timestamps: false
     })
 }

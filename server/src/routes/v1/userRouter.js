@@ -2,6 +2,9 @@ const { Router } = require('express');
 const logInUser = require('./handlers/logInUser');
 const registerUser = require('./handlers/registerUser');
 const confirmUser = require('./handlers/confirmUser');
+const changeToPassword = require('./handlers/changeToPassword.js');
+const validateToken = require('./handlers/validateToken');
+const putChangePasswordUser = require('./handlers/putChangePasswordUser');
 
 const UserRouter = Router();
 
@@ -15,10 +18,20 @@ const UserRouter = Router();
  */
 
 //* Sesion Requests
+
+//* Password Routes
+    //? Request to change password redirect
+UserRouter.post('/changepassword', changeToPassword);
+UserRouter.route('/changepassword/:tokenId')
+            .get(validateToken)//? Request the validation for one token to change Password
+            .post(putChangePasswordUser)//? Update user with new password
+
+//*##################################
+
     //? Register an user
 UserRouter.post('/', registerUser);
     //? Confirm account for user registered
-UserRouter.post('/:tokenId', confirmUser);
+UserRouter.post('/confirm/:tokenId', confirmUser);
     //? Log In user
 UserRouter.get('/login', logInUser);
 
