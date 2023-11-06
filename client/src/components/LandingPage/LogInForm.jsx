@@ -4,7 +4,6 @@ import Message, { typeMessages } from "../Message";
 import logInRequest from "../../handlers/logInRequest";
 
 const LogInForm = () => {
-
     return (
         <Formik
             initialValues={{
@@ -34,7 +33,8 @@ const LogInForm = () => {
 
                 return Object.fromEntries(errors);
             }}
-            onSubmit={({email, password}, {setFieldError}) => {
+            onSubmit={({email, password}, {setFieldError, setSubmitting}) => {
+                setSubmitting(false);
                 logInRequest({email, password})
                     .then(({data}) => {
                         if(data.session){
@@ -48,10 +48,11 @@ const LogInForm = () => {
                             return;
                         }
                         setFieldError('base', 'Ha habido un error inesperado, Intentelo más tarde');
-                    });
+                    })
+                    .finally(() => setSubmitting(true));
             }}
         >
-            {({ handleChange, handleSubmit, values, errors }) => (
+            {({ handleChange, handleSubmit, values, errors, isSubmitting }) => (
                 <form
                     className='space-y-4 w-full py-8 px-6'
                     onSubmit={handleSubmit}
@@ -89,6 +90,7 @@ const LogInForm = () => {
                         type="submit"
                         className='btn_base font-bold text-white bg-stone-500 cursor-pointer'
                         style={{ background: "rgb(77, 69, 61)" }}
+                        disabled={isSubmitting}
                     >
                         Ingresar
                     </button>
