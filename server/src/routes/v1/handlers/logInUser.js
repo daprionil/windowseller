@@ -37,7 +37,7 @@ module.exports = async function(req,res){
 
         //? Response with the jwt in json
         res.json({sesion: jwt});
-    } catch ({message}) {
-        res.json({error: message})
+    } catch ({status, message}) {
+        res.status(status).json({error: message})
     }
 }

@@ -1,8 +1,10 @@
 import { Formik } from "formik";
 import { errorsFieldValidations, fieldValidations, nameFields } from "../../utils/formValidations";
 import Message, { typeMessages } from "../Message";
+import logInRequest from "../../handlers/logInRequest";
 
 const LogInForm = () => {
+
     return (
         <Formik
             initialValues={{
@@ -32,8 +34,21 @@ const LogInForm = () => {
 
                 return Object.fromEntries(errors);
             }}
-            onSubmit={({email, password}, {setErrors, setSubmitting, resetForm}) => {
-                
+            onSubmit={({email, password}, {setFieldError}) => {
+                logInRequest({email, password})
+                    .then(({data}) => {
+                        if(data.session){
+                            //* #### SET HERE THE TOKEN SESSION
+                        }
+                    })
+                    .catch(({response:{data}}) => {
+                        if(data?.error){
+                            //! Set error
+                            setFieldError('base', data.error);
+                            return;
+                        }
+                        setFieldError('base', 'Ha habido un error inesperado, Intentelo más tarde');
+                    });
             }}
         >
             {({ handleChange, handleSubmit, values, errors }) => (
@@ -67,6 +82,9 @@ const LogInForm = () => {
                             errors.password && <Message msg={errors.password} type={typeMessages.error} />
                         }
                     </label>
+                    {
+                        errors.base && <Message msg={errors.base} type={typeMessages.error} />
+                    }
                     <button
                         type="submit"
                         className='btn_base font-bold text-white bg-stone-500 cursor-pointer'
