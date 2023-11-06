@@ -31,9 +31,9 @@ UserRouter.route('/changepassword/:tokenId')
     //? Register an user
 UserRouter.post('/', registerUser);
     //? Confirm account for user registered
-UserRouter.post('/confirm/:tokenId', confirmUser);
+UserRouter.get('/confirm/:tokenId', confirmUser);
     //? Log In user
-UserRouter.get('/login', logInUser);
+UserRouter.post('/login', logInUser);
 
 //? Export router
 module.exports = UserRouter;
