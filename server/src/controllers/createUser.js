@@ -13,6 +13,8 @@ module.exports = async function({
     
     //* Set token
     user.token = generateTokenId();
+    
+    //* Save the user created
     const userSaved = await user.save();
 
     return userSaved;

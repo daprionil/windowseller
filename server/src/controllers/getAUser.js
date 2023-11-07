@@ -15,7 +15,7 @@ const getAUser = async function({
         id, namecompany, eslogan,
         description, phone, email, token,
     });
-    
+
     //? Find user with properties
     const user = await User.findOne({
         where: allDataEmptyValidation

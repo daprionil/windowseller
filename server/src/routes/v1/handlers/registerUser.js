@@ -7,7 +7,8 @@ const { validations } = require('../../../utils/validationFormFields.js');
 module.exports = async function(req,res){
     try {
         //* Get Values
-        const { namecompany, eslogan, phone, email, password } = req.body;
+        const { namecompany, eslogan, phone:phoneprev, email, password } = req.body;
+        const phone = phoneprev + '';
 
         //* Is exist all properties
         const emptyValuesValidation = Object.entries({
@@ -41,14 +42,14 @@ module.exports = async function(req,res){
         if(isExistUserWithPhone){
             throw CustomErrors.EmptyError('Ya existe un usuario con este teléfono')
         };
-
+        
         //* Generate TOKEN in User values
-        const userCreated = await createUser({ namecompany, eslogan, phone, email, password });
+        await createUser({ namecompany, eslogan, phone, email, password });
 
         //? Send response with user created
-        res.json({user: userCreated});
+        res.json({created: true});
     } catch ({status, message}) {
-        res.status(status).json({
+        res.status(status ?? 500).json({
             error: message
         });
     };

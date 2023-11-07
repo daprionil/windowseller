@@ -30,7 +30,7 @@ UserRouter.route('/changepassword/:tokenId')
 //*##################################
 
     //? Register an user
-UserRouter.post('/', authUser, registerUser);
+UserRouter.post('/', registerUser);
     //? Confirm account for user registered
 UserRouter.get('/confirm/:tokenId', confirmUser);
     //? Log In user
