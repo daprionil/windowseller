@@ -6,7 +6,6 @@ import registerUserRequest from "../../handlers/registerUserRequest";
 
 const SignInForm = () => {
     const [sectionActive, setSectionActive] = useState(0);
-
     return (
         <Formik
             initialValues={{
@@ -40,10 +39,19 @@ const SignInForm = () => {
                 }
                 return Object.fromEntries(errors);
             }}
-            onSubmit={(values, { setFieldError }) => {
+            onSubmit={(values, { resetForm, setSubmitting }) => {
                 //* Validate passwords
-                registerUserRequest(values)
-                    .then(console.log);
+                setSubmitting(false);
+                const {namecompany, eslogan, phone, email, password} = values;
+                registerUserRequest({namecompany, eslogan, phone, email, password})
+                    .then(({data}) => {
+                        if(data.created){
+                            
+                        }
+                        resetForm();
+                    })
+                    .catch(console.log)
+                    .finally(() => setSubmitting(true));
             }}
         >
             {({ handleChange, handleSubmit, values, errors }) => (

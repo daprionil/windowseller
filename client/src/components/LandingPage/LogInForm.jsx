@@ -33,13 +33,14 @@ const LogInForm = () => {
 
                 return Object.fromEntries(errors);
             }}
-            onSubmit={({email, password}, {setFieldError, setSubmitting}) => {
+            onSubmit={({email, password}, {setFieldError, resetForm, setSubmitting}) => {
                 setSubmitting(false);
                 logInRequest({email, password})
                     .then(({data}) => {
                         if(data.session){
                             //* #### SET HERE THE TOKEN SESSION
                         }
+                        resetForm();
                     })
                     .catch(({response:{data}}) => {
                         if(data?.error){
