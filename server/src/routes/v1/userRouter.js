@@ -5,6 +5,7 @@ const confirmUser = require('./handlers/confirmUser');
 const changeToPassword = require('./handlers/changeToPassword.js');
 const validateToken = require('./handlers/validateToken');
 const putChangePasswordUser = require('./handlers/putChangePasswordUser');
+const authUser = require('../../middlewares/authUser.js');
 
 const UserRouter = Router();
 
@@ -29,7 +30,7 @@ UserRouter.route('/changepassword/:tokenId')
 //*##################################
 
     //? Register an user
-UserRouter.post('/', registerUser);
+UserRouter.post('/', authUser, registerUser);
     //? Confirm account for user registered
 UserRouter.get('/confirm/:tokenId', confirmUser);
     //? Log In user

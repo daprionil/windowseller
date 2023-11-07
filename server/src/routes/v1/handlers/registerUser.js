@@ -47,8 +47,9 @@ module.exports = async function(req,res){
 
         //? Send response with user created
         res.json({user: userCreated});
-    } catch (error) {
-        console.log(error);
-        res.json({error: 'eso'});
+    } catch ({status, message}) {
+        res.status(status).json({
+            error: message
+        });
     };
 };
