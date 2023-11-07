@@ -1,7 +1,7 @@
 const { User } = require('../database.js');
 const clearEmptyProperties = require('../utils/clearEmptyProperties.js');
 
-const GetAUser = async function({
+const getAUser = async function({
     id,
     namecompany,
     eslogan,
@@ -24,4 +24,4 @@ const GetAUser = async function({
     return user;
 };
 
-module.exports = GetAUser;
+module.exports = getAUser;

@@ -1,3 +1,4 @@
+const getUserByPk = require("../controllers/getUserByPk");
 const CustomErrors = require("../utils/errors/CustomErrors");
 const validateJWT = require("../utils/validateJWT");
 
@@ -14,20 +15,23 @@ module.exports = async function(req,res, next){
         if(!rgxValidationJWT){
             throw CustomErrors.SintaxError('No es un formato de tóken válido');
         }
+
         //* Validate if the token is avaliable
         const tokenJWT = authorization.replace(/bearer/i, '').trim();
         const decodedTokenDataUser = validateJWT(tokenJWT);
-        if(decodedTokenDataUser){
-            
-        }
+        if(!decodedTokenDataUser.id){
+            throw CustomErrors.ErrorAuthentication('No está autorizado para continuar');
+        };
         //* Search the user in the authorization
-        
+        const userFind = await getUserByPk(decodedTokenDataUser.id);
+        if(!userFind){
+            throw CustomErrors.ErrorAuthentication('No se ha logrado encontrar un Usuario relacionado');
+        }
         //* Save the user in the locals
-
+        res.locals.userAuthorizate = userFind.dataValues;
         next();
     } catch ({status, message}) {
-        console.log(status, message);
-        res.status(status).json(
+        res.status(status ?? 500).json(
             {
                 error: message
             }
