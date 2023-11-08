@@ -3,6 +3,8 @@ const createUser = require("../../../controllers/createUser.js");
 const CustomErrors = require("../../../utils/errors/CustomErrors.js");
 const { valuesErrorsFormFields } = require("../../../utils/validationFormFields.js");
 const { validations } = require('../../../utils/validationFormFields.js');
+const sendMail = require("../../../controllers/sendMail.js");
+const confirmAccountMail = require("../../../utils/formatMails/confirmAccountMail.js");
 
 module.exports = async function(req,res){
     try {
@@ -44,7 +46,14 @@ module.exports = async function(req,res){
         };
         
         //* Generate TOKEN in User values
-        await createUser({ namecompany, description, eslogan, phone, email, password });
+        const userCreated = await createUser({ namecompany, description, eslogan, phone, email, password });
+        
+        //! Send email
+        await sendMail(confirmAccountMail({
+            email: userCreated.email,
+            token: userCreated.token,
+            namecompany: userCreated.namecompany
+        }))
 
         //? Send response with user created
         res.json({created: true});
