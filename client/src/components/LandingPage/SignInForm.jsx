@@ -42,8 +42,8 @@ const SignInForm = () => {
             onSubmit={(values, { resetForm, setSubmitting }) => {
                 //* Validate passwords
                 setSubmitting(false);
-                const {namecompany, eslogan, phone, email, password} = values;
-                registerUserRequest({namecompany, eslogan, phone, email, password})
+                const {namecompany, description, eslogan, phone, email, password} = values;
+                registerUserRequest({namecompany, description, eslogan, phone, email, password})
                     .then(({data}) => {
                         if(data.created){
                             

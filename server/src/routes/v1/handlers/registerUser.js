@@ -7,14 +7,14 @@ const { validations } = require('../../../utils/validationFormFields.js');
 module.exports = async function(req,res){
     try {
         //* Get Values
-        const { namecompany, eslogan, phone:phoneprev, email, password } = req.body;
+        const { namecompany, eslogan, description = '', phone:phoneprev, email, password } = req.body;
         const phone = phoneprev + '';
 
         //* Is exist all properties
         const emptyValuesValidation = Object.entries({
             namecompany, eslogan,
             phone, email,
-            password
+            password,
         }).some(([,v]) => !v);
         if(emptyValuesValidation){
             throw CustomErrors.EmptyError('Completa todos los requisitos para el registro');
@@ -44,7 +44,7 @@ module.exports = async function(req,res){
         };
         
         //* Generate TOKEN in User values
-        await createUser({ namecompany, eslogan, phone, email, password });
+        await createUser({ namecompany, description, eslogan, phone, email, password });
 
         //? Send response with user created
         res.json({created: true});

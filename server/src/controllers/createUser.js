@@ -3,12 +3,12 @@ const generateTokenId = require('../utils/generateTokenId.js');
 
 module.exports = async function({
     namecompany, eslogan,
-    phone, email, password
+    phone, email, password, description
 }){
     //? Create user
     const user = User.build({
         namecompany, eslogan,
-        phone, email, password
+        phone, email, password, description
     });
     
     //* Set token
