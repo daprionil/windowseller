@@ -13,7 +13,7 @@ function App() {
                 <Route index path='' element={<HomeLanding />}/>
                 <Route path='log-in' element={<LogInPage />}/>
                 <Route path='sign-in' element={<SignInPage />}/>
-                <Route path='/forgotpassword' element={<ForgotPassword />}/>
+                <Route path='forgotpassword' element={<ForgotPassword />}/>
             </Route>
             <Route path='/confirmaccount/:tokenId' element={<ConfirmAccount />}/>
         </Routes>

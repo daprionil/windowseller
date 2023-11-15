@@ -1,5 +1,3 @@
-import HeaderLanding from "../../components/LandingPage/HeaderLanding";
-
 function ForgotPassword() {
     return (
         <>

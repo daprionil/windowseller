@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Formik } from "formik";
 import { errorsFieldValidations, fieldValidations, nameFields } from "../../utils/formValidations";
 import Message, { typeMessages } from "../Message";
@@ -87,6 +88,9 @@ const LogInForm = () => {
                     {
                         errors.base && <Message msg={errors.base} type={typeMessages.error} />
                     }
+                    <p className='hover:underline text-right text-sm'>
+                        <Link to='/forgotpassword' replace>¿Olvidaste tu contraseña?</Link>
+                    </p>
                     <button
                         type="submit"
                         className='btn_base font-bold text-white bg-stone-500 cursor-pointer'
