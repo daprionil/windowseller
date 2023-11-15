@@ -12,8 +12,8 @@ app.use(morgan('dev'));
 app.use(express.json())
 
 //* CORS configuration
-const { HOST_CLIENT_1 } = process.env;
-const whiteList = [ HOST_CLIENT_1 ];
+const { CLIENT_URL_DEPLOY } = process.env;
+const whiteList = [ CLIENT_URL_DEPLOY ];
 const optionsCors = {
     origin: (origin, callback) => {
         if(whiteList.includes(origin)){

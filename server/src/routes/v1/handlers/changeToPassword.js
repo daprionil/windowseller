@@ -29,11 +29,11 @@ module.exports = async function(req,res){
         const tokenSettled = await setTokenUser(user.id);
         
         //! ##### SEND EMAIL to Recover password #####
-        const {email: emailUser, namecompany, token} = user;
+        const {email: emailUser, namecompany} = user;
         await sendMail(changePasswordUserMailFormat({
             email: emailUser,
             namecompany,
-            tokenId: token
+            tokenId: tokenSettled
         }))
 
         res.send({sending: true});
