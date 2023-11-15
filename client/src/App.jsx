@@ -4,6 +4,7 @@ import HomeLanding from './pages/LandingPage/HomeLanding';
 import LogInPage from './pages/LandingPage/LogInPage';
 import SignInPage from './pages/LandingPage/SignInPage';
 import ConfirmAccount from './pages/ConfirmAccount';
+import ForgotPassword from './pages/LandingPage/ForgotPassword';
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <Route index path='' element={<HomeLanding />}/>
                 <Route path='log-in' element={<LogInPage />}/>
                 <Route path='sign-in' element={<SignInPage />}/>
+                <Route path='/forgotpassword' element={<ForgotPassword />}/>
             </Route>
             <Route path='/confirmaccount/:tokenId' element={<ConfirmAccount />}/>
         </Routes>
