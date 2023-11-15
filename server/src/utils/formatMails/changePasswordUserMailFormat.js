@@ -1,9 +1,9 @@
-module.exports = function({email, namecompany}){
+module.exports = function({email, namecompany, tokenId}){
     return {
         from: 'Window Seller Companies',
         to: email,
-        subject: 'Confirma tu Cuenta de Window Seller',
-        text: 'Confirma tu Cuenta de Window Seller',
+        subject: 'Cambiar Contraseña - Window Seller',
+        text: 'Cambia la contraseña de tu Cuenta en Window Seller',
         html: `
         <!DOCTYPE html>
         <head>
@@ -16,12 +16,9 @@ module.exports = function({email, namecompany}){
                 <div class="title" style="font-weight: bold">
                     <p>Bienvenido Srs <span class="title_span">${namecompany}</span></p>
                 </div>
+                <p>Cambia tu  <b>contraseña</b>; y piensa una contraseña que puedas recordar !</p>
                 <div>
-                    <p>Confirma tu cuenta</p>
-                    <p>Cambia tu  <b>contraseña</b>; y piensa una contraseña que puedas recordar !</p>
-                </div>
-                <div>
-                    <a href="${process.env.CLIENT_URL_DEPLOY}/changepassword/${token}" rel="noopener noreferrer" class="btn_confirm" style="font-weight: bold">
+                    <a href="${process.env.CLIENT_URL_DEPLOY}/changepassword/${tokenId}" rel="noopener noreferrer" class="btn_confirm" style="font-weight: bold">
                         <button>Ir a modificar</button>
                     </a>
                 </div>

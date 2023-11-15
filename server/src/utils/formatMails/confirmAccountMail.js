@@ -16,10 +16,7 @@ module.exports = function ({ email, token, namecompany }) {
                 <div class="title" style="font-weight: bold">
                     <p>Bienvenido Srs <span class="title_span">${namecompany}</span></p>
                 </div>
-                <div>
-                    <p>Confirma tu cuenta</p>
-                    <p>Has click en <b>confirmar cuenta</b> y pensar una contraseña que puedas recordar !</p>
-                </div>
+                <p>Has click en <b>confirmar cuenta</b> y pensar una contraseña que puedas recordar !</p>
                 <div>
                     <a href="${process.env.CLIENT_URL_DEPLOY}/confirmaccount/${token}" rel="noopener noreferrer" class="btn_confirm" style="font-weight: bold">
                         <button>confirmar cuenta</button>
@@ -54,7 +51,7 @@ module.exports = function ({ email, token, namecompany }) {
                 overflow: hidden;
                 text-align: center;
             }
-            .content_mail>div {
+            .content_mail>div,p {
                 padding: 10px;
             }
             .btn_confirm>button {
