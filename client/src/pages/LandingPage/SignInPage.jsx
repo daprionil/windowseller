@@ -3,7 +3,7 @@ import SignInForm from "../../components/LandingPage/SignInForm"
 const SignInPage = () => {
     return (
         <div className='block mt-10 mx-auto space-y-5 lg:grid lg:grid-cols-2 lg:max-w-5xl lg:items-center lg:space-x-6'>
-            <div className=''>
+            <div>
                 <h1 className=' text-4xl lg:text-6xl drop-shadow-xl font-black text-center'>
                     Registrate y <span className='text-yellow-500'>Promociona</span> tus Productos
                 </h1>
