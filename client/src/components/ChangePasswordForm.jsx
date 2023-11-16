@@ -30,6 +30,10 @@ const ChangePasswordForm = () => {
 
                 return Object.fromEntries(errors);
             }}
+            onSubmit={({password}) => {
+                //! Realize the request controller to changepassword POST/users/changepassword/:tokenId
+                //! Body -> Password
+            }}
         >
             {({ values: { password, password2 }, errors, handleSubmit, isSubmitting, handleChange }) => (
                 <form

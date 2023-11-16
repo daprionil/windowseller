@@ -19,4 +19,7 @@
     input[type="password"]{
         @apply rounded-sm py-2 px-4 text-gray-700 bg-stone-200 w-full
     }
+    p,span,textarea,h1,h2,h3,h4,h5,h6{
+        @apply text-stone-800
+    }
 }
