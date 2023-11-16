@@ -34,7 +34,7 @@ const SignInForm = () => {
                     if (!validationField) continue;
                     
                     //? Validate fields with password how second argument
-                    const fieldValidate = validationField(val, values.password);
+                    const fieldValidate = validationField(val, {comparepass:values.password});
                     if (!fieldValidate) {
                         errors.push([key, errorsFieldValidations[key]]);
                         continue;
@@ -89,7 +89,7 @@ const SignInForm = () => {
                                 value={values.namecompany}
                             />
                             {
-                                errors.namecompany && <Message msg={errors.namecompany} type={typeMessages.error} />
+                                errors.namecompany && <Message msg={errors.namecompany} type={typeMessages.ERROR} />
                             }
                         </label>
                         <label className='block'>
@@ -102,7 +102,7 @@ const SignInForm = () => {
                                 value={values.eslogan}
                             />
                             {
-                                errors.eslogan && <Message msg={errors.eslogan} type={typeMessages.error} />
+                                errors.eslogan && <Message msg={errors.eslogan} type={typeMessages.ERROR} />
                             }
                         </label>
                         <button
@@ -125,7 +125,7 @@ const SignInForm = () => {
                                 value={values.description}
                             ></textarea>
                             {
-                                errors.description && <Message msg={errors.description} type={typeMessages.error} />
+                                errors.description && <Message msg={errors.description} type={typeMessages.ERROR} />
                             }
                         </label>
                         <label className='block'>
@@ -139,7 +139,7 @@ const SignInForm = () => {
                                 value={values.phone}
                             />
                             {
-                                errors.phone && <Message msg={errors.phone} type={typeMessages.error} />
+                                errors.phone && <Message msg={errors.phone} type={typeMessages.ERROR} />
                             }
                         </label>
                         <div className="flex justify-between items-center flex-nowrap">
@@ -172,7 +172,7 @@ const SignInForm = () => {
                                 value={values.email}
                             />
                             {
-                                errors.email && <Message msg={errors.email} type={typeMessages.error} />
+                                errors.email && <Message msg={errors.email} type={typeMessages.ERROR} />
                             }
                         </label>
                         <label className='block'>
@@ -185,7 +185,7 @@ const SignInForm = () => {
                                 value={values.password}
                             />
                             {
-                                errors.password && <Message msg={errors.password} type={typeMessages.error} />
+                                errors.password && <Message msg={errors.password} type={typeMessages.ERROR} />
                             }
                         </label>
                         <label className='block'>
@@ -198,11 +198,11 @@ const SignInForm = () => {
                                 value={values.password2}
                             />
                             {
-                                errors.password2 && <Message msg={errors.password2} type={typeMessages.error} />
+                                errors.password2 && <Message msg={errors.password2} type={typeMessages.ERROR} />
                             }
                         </label>
                         {
-                            errors.base && <Message msg={errors.base} type={typeMessages.error}/>
+                            errors.base && <Message msg={errors.base} type={typeMessages.ERROR}/>
                         }
                         <div className="flex justify-between items-center flex-nowrap">
                             <button

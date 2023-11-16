@@ -68,7 +68,7 @@ const LogInForm = () => {
                             value={values.email}
                         />
                         {
-                            errors.email && <Message msg={errors.email} type={typeMessages.error} />
+                            errors.email && <Message msg={errors.email} type={typeMessages.ERROR} />
                         }
                     </label>
                     <label className='block'>
@@ -81,11 +81,11 @@ const LogInForm = () => {
                             value={values.password}
                         />
                         {
-                            errors.password && <Message msg={errors.password} type={typeMessages.error} />
+                            errors.password && <Message msg={errors.password} type={typeMessages.ERROR} />
                         }
                     </label>
                     {
-                        errors.base && <Message msg={errors.base} type={typeMessages.error} />
+                        errors.base && <Message msg={errors.base} type={typeMessages.ERROR} />
                     }
                     <button
                         type="submit"

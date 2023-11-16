@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useParams } from "react-router-dom"
 
-import confirmUserAccount from "../handlers/confirmUserAccount";
+import confirmUserAccountRequest from "../handlers/confirmUserAccountRequest";
 import WindowSellerIcon from "../components/WindowSellerIcon";
 import LogInButton from '../components/LogInButton';
 import Loader from "../components/Loader";
@@ -20,7 +20,7 @@ const ConfirmAccout = () => {
         if (refEjecution.current) return;
 
         refEjecution.current = true;
-        confirmUserAccount({ tokenId })
+        confirmUserAccountRequest({ tokenId })
             .then(({data}) => {
                 if(data.confirmed){
                     setStatusConfirm({

@@ -1,14 +1,14 @@
 export const typeMessages = {
-    'default':'default',
-    'error': 'error',
-    'success':'success'
+    'DEFAULT':'DEFAULT',
+    'ERROR': 'ERROR',
+    'SUCCESS':'SUCCESS'
 };
 
-const Message = ({msg, type = typeMessages.default}) => {
+const Message = ({msg, type = typeMessages.DEFAULT}) => {
     const typeMsg = ({
-        [typeMessages.default]: 'text-stone-700',
-        [typeMessages.error]: 'text-red-500',
-        [typeMessages.success]: 'text-green-600'
+        [typeMessages.DEFAULT]: 'text-stone-700',
+        [typeMessages.ERROR]: 'text-red-500',
+        [typeMessages.SUCCESS]: 'text-green-600'
     })[type];
 
     return (
