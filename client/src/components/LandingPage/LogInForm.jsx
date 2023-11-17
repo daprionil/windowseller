@@ -68,9 +68,11 @@ const LogInForm = () => {
                             onChange={handleChange}
                             value={values.email}
                         />
-                        {
-                            errors.email && <Message msg={errors.email} type={typeMessages.error} />
-                        }
+                        <div className="text-center text-sm">
+                            {
+                                errors.email && <Message msg={errors.email} type={typeMessages.error} />
+                            }
+                        </div>
                     </label>
                     <label className='block'>
                         <p className='font-bold'>Contraseña</p>
@@ -81,9 +83,11 @@ const LogInForm = () => {
                             onChange={handleChange}
                             value={values.password}
                         />
-                        {
-                            errors.password && <Message msg={errors.password} type={typeMessages.error} />
-                        }
+                        <div className="text-center text-sm">
+                            {
+                                errors.password && <Message msg={errors.password} type={typeMessages.error} />
+                            }
+                        </div>
                     </label>
                     {
                         errors.base && <Message msg={errors.base} type={typeMessages.error} />
