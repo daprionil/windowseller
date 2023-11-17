@@ -88,9 +88,11 @@ const SignInForm = () => {
                                 onChange={handleChange}
                                 value={values.namecompany}
                             />
-                            {
-                                errors.namecompany && <Message msg={errors.namecompany} type={typeMessages.ERROR} />
-                            }
+                            <div className="text-center text-sm">
+                                {
+                                    errors.namecompany && <Message msg={errors.namecompany} type={typeMessages.ERROR} />
+                                }
+                            </div>
                         </label>
                         <label className='block'>
                             <p className='font-bold'>Dale un toque!</p>
@@ -101,9 +103,11 @@ const SignInForm = () => {
                                 onChange={handleChange}
                                 value={values.eslogan}
                             />
-                            {
-                                errors.eslogan && <Message msg={errors.eslogan} type={typeMessages.ERROR} />
-                            }
+                            <div className="text-center text-sm">
+                                {
+                                    errors.eslogan && <Message msg={errors.eslogan} type={typeMessages.ERROR} />
+                                }
+                            </div>
                         </label>
                         <button
                             className="btn_base text-white font-bold"
@@ -124,9 +128,11 @@ const SignInForm = () => {
                                 placeholder='¿Qué hace tu compañía?, ¿Qué vendes?'
                                 value={values.description}
                             ></textarea>
-                            {
-                                errors.description && <Message msg={errors.description} type={typeMessages.ERROR} />
-                            }
+                            <div className="text-center text-sm">
+                                {
+                                    errors.description && <Message msg={errors.description} type={typeMessages.ERROR} />
+                                }
+                            </div>
                         </label>
                         <label className='block'>
                             <p className='font-bold'>Número de whatsapp</p>
@@ -138,9 +144,11 @@ const SignInForm = () => {
                                 onChange={handleChange}
                                 value={values.phone}
                             />
-                            {
-                                errors.phone && <Message msg={errors.phone} type={typeMessages.ERROR} />
-                            }
+                            <div className="text-center text-sm">
+                                {
+                                    errors.phone && <Message msg={errors.phone} type={typeMessages.ERROR} />
+                                }
+                            </div>
                         </label>
                         <div className="flex justify-between items-center flex-nowrap">
                             <button
@@ -171,9 +179,11 @@ const SignInForm = () => {
                                 onChange={handleChange}
                                 value={values.email}
                             />
-                            {
-                                errors.email && <Message msg={errors.email} type={typeMessages.ERROR} />
-                            }
+                            <div className="text-center text-sm">
+                                {
+                                    errors.email && <Message msg={errors.email} type={typeMessages.ERROR} />
+                                }
+                            </div>
                         </label>
                         <label className='block'>
                             <p className='font-bold'>Contraseña</p>
@@ -184,9 +194,11 @@ const SignInForm = () => {
                                 onChange={handleChange}
                                 value={values.password}
                             />
-                            {
-                                errors.password && <Message msg={errors.password} type={typeMessages.ERROR} />
-                            }
+                            <div className="text-center text-sm">
+                                {
+                                    errors.password && <Message msg={errors.password} type={typeMessages.ERROR} />
+                                }
+                            </div>
                         </label>
                         <label className='block'>
                             <p className='font-bold'>Repite tu contraseña</p>
@@ -197,9 +209,11 @@ const SignInForm = () => {
                                 onChange={handleChange}
                                 value={values.password2}
                             />
-                            {
-                                errors.password2 && <Message msg={errors.password2} type={typeMessages.ERROR} />
-                            }
+                            <div className="text-center text-sm">
+                                {
+                                    errors.password2 && <Message msg={errors.password2} type={typeMessages.ERROR} />
+                                }
+                            </div>
                         </label>
                         {
                             errors.base && <Message msg={errors.base} type={typeMessages.ERROR}/>

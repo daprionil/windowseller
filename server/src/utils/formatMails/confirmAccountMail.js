@@ -16,7 +16,10 @@ module.exports = function ({ email, token, namecompany }) {
                 <div class="title" style="font-weight: bold">
                     <p>Bienvenido Srs <span class="title_span">${namecompany}</span></p>
                 </div>
-                <p>Has click en <b>confirmar cuenta</b> y pensar una contraseña que puedas recordar !</p>
+                <div>
+                    <p>Confirma tu cuenta</p>
+                    <p>Has click en <b>confirmar cuenta</b> y empieza a Administrar tus productos!</p>
+                </div>
                 <div>
                     <a href="${process.env.CLIENT_URL_DEPLOY}/confirmaccount/${token}" rel="noopener noreferrer" class="btn_confirm" style="font-weight: bold">
                         <button>confirmar cuenta</button>

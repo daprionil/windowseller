@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Formik } from "formik";
 import { errorsFieldValidations, fieldValidations, nameFields } from "../../utils/formValidations";
 import Message, { typeMessages } from "../Message";
@@ -34,11 +35,13 @@ const LogInForm = () => {
                 return Object.fromEntries(errors);
             }}
             onSubmit={({email, password}, {setFieldError, resetForm, setSubmitting}) => {
-                setSubmitting(false);
+                setSubmitting(true);
                 logInRequest({email, password})
                     .then(({data}) => {
-                        if(data.session){
+                        console.log(data);
+                        if(data.sesion){
                             //* #### SET HERE THE TOKEN SESSION
+                            console.log(data.sesion);
                         }
                         resetForm();
                     })
@@ -50,7 +53,7 @@ const LogInForm = () => {
                         }
                         setFieldError('base', 'Ha habido un error inesperado, Intentelo más tarde');
                     })
-                    .finally(() => setSubmitting(true));
+                    .finally(() => setSubmitting(false));
             }}
         >
             {({ handleChange, handleSubmit, values, errors, isSubmitting }) => (
@@ -67,9 +70,11 @@ const LogInForm = () => {
                             onChange={handleChange}
                             value={values.email}
                         />
-                        {
-                            errors.email && <Message msg={errors.email} type={typeMessages.ERROR} />
-                        }
+                        <div className="text-center text-sm">
+                            {
+                                errors.email && <Message msg={errors.email} type={typeMessages.ERROR} />
+                            }
+                        </div>
                     </label>
                     <label className='block'>
                         <p className='font-bold'>Contraseña</p>
@@ -80,13 +85,18 @@ const LogInForm = () => {
                             onChange={handleChange}
                             value={values.password}
                         />
-                        {
-                            errors.password && <Message msg={errors.password} type={typeMessages.ERROR} />
-                        }
+                        <div className="text-center text-sm">
+                            {
+                                errors.password && <Message msg={errors.password} type={typeMessages.ERROR} />
+                            }
+                        </div>
                     </label>
                     {
                         errors.base && <Message msg={errors.base} type={typeMessages.ERROR} />
                     }
+                    <p className='hover:underline text-right text-sm'>
+                        <Link to='/forgotpassword' replace>¿Olvidaste tu contraseña?</Link>
+                    </p>
                     <button
                         type="submit"
                         className='btn_base font-bold text-white bg-stone-500 cursor-pointer'
