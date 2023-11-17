@@ -38,7 +38,6 @@ const LogInForm = () => {
                 setSubmitting(true);
                 logInRequest({email, password})
                     .then(({data}) => {
-                        console.log(data);
                         if(data.sesion){
                             //* #### SET HERE THE TOKEN SESSION
                             console.log(data.sesion);

@@ -56,7 +56,7 @@ const ChangePassword = () => {
                         <div className="shadow-xl rounded-md max-w-md lg:max-w-none p-2 lg:mx-0 mx-auto">
                             {
                                 tokenValidation.status ?
-                                    <ChangePasswordForm />
+                                    <ChangePasswordForm {...{tokenId}}/>
                                 :
                                     <div className="px-6 py-8 space-y-5">
                                         <div className="flex flex-nowrap items-center justify-center gap-5 relative">
@@ -78,7 +78,7 @@ const ChangePassword = () => {
                     </div>
             }
         </>
-    );
-};
+    )
+}
 
 export default ChangePassword
