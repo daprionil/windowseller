@@ -5,7 +5,6 @@ import changePasswordRequest from "../handlers/changePasswordRequest";
 import { useState } from "react";
 import Loader from "./Loader";
 import SuccessIcon from '../components/SuccessIcon';
-import SignInButton from "./SignInButton";
 import LogInButton from "./LogInButton";
 
 const ChangePasswordForm = ({ tokenId }) => {
