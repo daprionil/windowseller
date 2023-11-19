@@ -6,6 +6,9 @@ import SignInPage from './pages/LandingPage/SignInPage';
 import ConfirmAccount from './pages/ConfirmAccount';
 import ChangePassword from './pages/ChangePassword';
 import ForgotPassword from './pages/LandingPage/ForgotPassword';
+import UserSessionContainer from './pages/UserSession/UserSessionContainer';
+import HomeUser from './pages/UserSession/HomeUser';
+import PrivateUserRoute from './components/UserSession/PrivateUserRoute';
 
 function App() {
     return (
@@ -18,6 +21,17 @@ function App() {
             </Route>
             <Route path='/confirmaccount/:tokenId' element={<ConfirmAccount />} />
             <Route path='/changepassword/:tokenId' element={<ChangePassword />} />
+            
+            {/*//! Inside User Routes */}
+            <Route
+                path='/account'
+                element={
+                    <PrivateUserRoute>
+                        <UserSessionContainer />
+                    </PrivateUserRoute>
+                }>
+                <Route index element={<HomeUser />}/>
+            </Route>
         </Routes>
     )
 }

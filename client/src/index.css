@@ -6,7 +6,7 @@
 
 @layer utilities{
     .btn_base{
-        @apply shadow rounded-md px-4 py-2 hover:scale-[102%] scale-100 transform transition duration-200 before:content-[''] before:bg-red-400 before:w-full before:-left-full hover:before:left-0 before:top-0 overflow-hidden before:bg-opacity-30 before:transition-all before:filter before:hue-rotate-60 before:duration-200 before:ease-in-out relative before:absolute before:h-full
+        @apply shadow rounded-md px-4 py-2 hover:scale-[102%] scale-100 transform transition duration-200 before:content-[''] before:bg-yellow-400 before:w-full before:-left-full hover:before:left-0 before:top-0 overflow-hidden before:bg-opacity-30 before:transition-all before:filter before:duration-200 before:ease-in-out relative before:absolute before:h-full
     }
 }
 

@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Formik } from "formik";
 import { errorsFieldValidations, fieldValidations, nameFields } from "../../utils/formValidations";
 import Message, { typeMessages } from "../Message";
 import logInRequest from "../../handlers/logInRequest";
+import useSessionUserStore from '../../stores/useSessionUserStore';
 
 const LogInForm = () => {
+    const setLogIn = useSessionUserStore(({setUserSession}) => setUserSession);
+    const navigate = useNavigate();
+
     return (
         <Formik
             initialValues={{
@@ -40,7 +44,8 @@ const LogInForm = () => {
                     .then(({data}) => {
                         if(data.sesion){
                             //* #### SET HERE THE TOKEN SESSION
-                            console.log(data.sesion);
+                            setLogIn({sessionToken: data.sesion});
+                            navigate('/account', {replace: true});
                         }
                         resetForm();
                     })
