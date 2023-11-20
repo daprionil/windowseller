@@ -6,6 +6,7 @@ const changeToPassword = require('./handlers/changeToPassword.js');
 const validateToken = require('./handlers/validateToken');
 const putChangePasswordUser = require('./handlers/putChangePasswordUser');
 const authUser = require('../../middlewares/authUser.js');
+const getUser = require('./handlers/userHandlers/getUser.js');
 
 const UserRouter = Router();
 
@@ -19,6 +20,12 @@ const UserRouter = Router();
  */
 
 //* Sesion Requests
+//? Register an user
+UserRouter.post('/', registerUser);
+//? Confirm account for user registered
+UserRouter.get('/confirm/:tokenId', confirmUser);
+//? Log In user
+UserRouter.post('/login', logInUser);
 
 //* Password Routes
     //? Request to change password redirect
@@ -29,12 +36,10 @@ UserRouter.route('/changepassword/:tokenId')
 
 //*##################################
 
-    //? Register an user
-UserRouter.post('/', registerUser);
-    //? Confirm account for user registered
-UserRouter.get('/confirm/:tokenId', confirmUser);
-    //? Log In user
-UserRouter.post('/login', logInUser);
+//! ####### Privdate User Routes
+//? Return the basic user data
+UserRouter.get('/', authUser, getUser);
+
 
 //? Export router
 module.exports = UserRouter;
