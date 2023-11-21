@@ -8,9 +8,9 @@ import useSessionUserStore from "../../stores/useSessionUserStore";
 const PrivateUserRoute = ({ children }) => {
     const [ validStarsSession, setValidStarsSession ] = useState(null);
     const userSession = useSessionUserStore(({ usersession }) => usersession);
-    const {getUserBySession, removeUserSession} = useSessionUserStore(
-        useShallow(({ getUserBySession, removeUserSession }) => (
-            { getUserBySession, removeUserSession }
+    const {getUserBySession, removeUserSession, setUserData} = useSessionUserStore(
+        useShallow(({ getUserBySession, removeUserSession, setUserData }) => (
+            { getUserBySession, removeUserSession, setUserData }
         ))
     );
     const refGetUserRequest = useRef(false);
@@ -21,25 +21,12 @@ const PrivateUserRoute = ({ children }) => {
             refGetUserRequest.current = true;
 
             //! Get user with request by session token
-            const promiseGetUserBySession = getUserBySession();
-            if(promiseGetUserBySession){
-                promiseGetUserBySession
-                    .then(() => {
-                        //! ############ CONTINUE HERE ##########
-                        /**
-                         * Get the user info and set in the store
-                         */
-                        setValidStarsSession(true);
-                    })
-                    .catch(() => {
-                        //! If the session token is invalid
-                        setValidStarsSession(false);
-                        removeUserSession();
-                    })
-                    .finally(() => {
-                        refGetUserRequest.current = false;
-                    })
+            if(!userSession){
+                setValidStarsSession(false);
+                refGetUserRequest.current = false;
+                return;
             }
+            //? ###### CREATE ROUTE IN THE SERVER TO VALIDATE SESSION ########
         }
     },[userSession]);
 

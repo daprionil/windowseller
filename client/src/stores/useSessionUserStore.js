@@ -1,5 +1,4 @@
-import {create} from 'zustand';
-import getUserDataSession from '../handlers/getUserDataSession';
+import { create } from 'zustand';
 
 const { VITE_NAME_STORAGE_TOKEN_SESSION } = import.meta.env;
 //? Search session user from the storage
@@ -22,22 +21,15 @@ const removeUserSessionOfStorage = () => {
 const useSessionUserStore = create((set, get) => ({
     usersession: getUserSessionStorage() ?? false,
     user: null,
-    setUserSession: ({sessionToken}) => {
+    setUserSession: ({ sessionToken }) => {
         //! Set session in the store
         setUserSessionStorage(sessionToken);
-        set(() => ({usersession: sessionToken}));
+        set(() => ({ usersession: sessionToken }));
     },
     removeUserSession: () => {
         //! Remove session in the store
         removeUserSessionOfStorage();
-        set(() => ({usersession: false}));
-    },
-    getUserBySession:() => {
-        const currentUserSession = get().usersession;
-        if(currentUserSession){
-            return getUserDataSession({session:currentUserSession});
-        }
-        return null;
+        set(() => ({ usersession: false }));
     }
 }));
 
