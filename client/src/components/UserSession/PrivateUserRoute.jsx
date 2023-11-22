@@ -1,18 +1,14 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { useShallow } from 'zustand/react/shallow'
 
 import Loader from "../Loader";
 import useSessionUserStore from "../../stores/useSessionUserStore";
+import getUserDataSession from "../../handlers/getUserDataSession";
 
 const PrivateUserRoute = ({ children }) => {
     const [ validStarsSession, setValidStarsSession ] = useState(null);
     const userSession = useSessionUserStore(({ usersession }) => usersession);
-    const {getUserBySession, removeUserSession, setUserData} = useSessionUserStore(
-        useShallow(({ getUserBySession, removeUserSession, setUserData }) => (
-            { getUserBySession, removeUserSession, setUserData }
-        ))
-    );
+    const removeUserSession = useSessionUserStore(({ removeUserSession }) => removeUserSession);
     const refGetUserRequest = useRef(false);
 
     useEffect(() => {
@@ -26,7 +22,26 @@ const PrivateUserRoute = ({ children }) => {
                 refGetUserRequest.current = false;
                 return;
             }
-            //? ###### CREATE ROUTE IN THE SERVER TO VALIDATE SESSION ########
+            
+            //? ###### Validate Session with GET/v1/users/
+            getUserDataSession({session:userSession})
+                .then(({data}) => {
+                    //? Apriori. CREATE ROUTE USER TO SEARCH OPEN SESSIONS IN THE STORAGE DB TO VALIDATE LOG INS
+                    //! Is the user is enable to stars session
+                    if(data.enable){
+                        setValidStarsSession(data.enable);
+                        return;
+                    }
+                    removeUserSession();
+                    setValidStarsSession(false);
+                })
+                .catch(() => {
+                    setValidStarsSession(false);
+                    removeUserSession();
+                })
+                .finally(() => {
+                    refGetUserRequest.current = false;
+                });
         }
     },[userSession]);
 
