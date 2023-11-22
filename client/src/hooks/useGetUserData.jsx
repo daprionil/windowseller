@@ -3,7 +3,7 @@ import getUserDataSession from "../handlers/getUserDataSession";
 import useSessionUserStore from "../stores/useSessionUserStore";
 
 const useGetUserData = () => {
-    const userSession = useSessionUserStore(({usersession}) => ({usersession}));
+    const userSession = useSessionUserStore(({usersession}) => usersession);
     const [ loading, setLoading ] = useState(false);
     const [ user, setUser ] = useState(null);
     const refRequest = useRef(false);

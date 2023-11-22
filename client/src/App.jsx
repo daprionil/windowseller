@@ -9,6 +9,7 @@ import ForgotPassword from './pages/LandingPage/ForgotPassword';
 import UserSessionContainer from './pages/UserSession/UserSessionContainer';
 import HomeUser from './pages/UserSession/HomeUser';
 import PrivateUserRoute from './components/UserSession/PrivateUserRoute';
+import ProfileUser from './pages/UserSession/ProfileUser';
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                     </PrivateUserRoute>
                 }>
                 <Route index element={<HomeUser />}/>
+                <Route path='profile' element={<ProfileUser />}/>
             </Route>
         </Routes>
     )
