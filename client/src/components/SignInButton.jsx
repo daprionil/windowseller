@@ -9,7 +9,7 @@ const SignInButton = () => {
 
     return (
         <button
-            className="btn_base bg-thirdyellow text-white font-black"
+            className="btn_base btn_base_hover bg-thirdyellow text-white font-black"
             onClick={handleClickButton}
         >
             Registrarse

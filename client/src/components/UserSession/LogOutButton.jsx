@@ -10,7 +10,7 @@ const LogOutButton = () => {
 
     return (
         <button
-            className="btn_base before:bg-red-600  before:bg-opacity-70 font-black bg-white"
+            className="btn_base before:bg-red-600 btn_base_hover before:bg-opacity-70 font-black bg-white"
             onClick={handleClick}
         >
             Cerrar Sesion

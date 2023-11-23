@@ -47,7 +47,7 @@ const HeaderUserAccount = () => {
                                 Configuración
                             </li>
                         </NavLink>
-                        <li>
+                        <li className='[&>button]:text-white [&>button]:before:bg-slate-200 [&>button]:before:bg-opacity-50 [&>button]:bg-red-500'>
                             <LogOutButton />
                         </li>
                     </ul>
