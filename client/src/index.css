@@ -20,7 +20,10 @@
     input[type="text"],
     input[type="email"],
     input[type="password"]{
-        @apply rounded-sm py-2 px-4 text-gray-700 bg-stone-200 w-full
+        @apply rounded-sm py-2 px-4 text-gray-700 bg-stone-200 w-full placeholder:font-bold
+    }
+    input[type="number"]{
+        @apply w-full p-2 bg-stone-100 placeholder:font-bold text-gray-700
     }
     p,span,textarea,h1,h2,h3,h4,h5,h6{
         @apply text-stone-800
