@@ -61,6 +61,20 @@ class ServerError extends Error{
     }
 }
 
+//?
+class NotFound extends Error{
+    #status;
+    constructor(msg){
+        super(msg)
+        this.name = 'NotFound'
+        this.#status = 404;
+    }
+    
+    get status(){
+        return this.#status;
+    }
+}
+
 class CustomError{
     ErrorAuthentication(msg){
         return new ErrorAuthentication(msg)
@@ -76,6 +90,9 @@ class CustomError{
     }
     SintaxError(msg){
         return new SintaxError(msg);
+    }
+    NotFound(msg){
+        return new NotFound(msg);
     }
 }
 
