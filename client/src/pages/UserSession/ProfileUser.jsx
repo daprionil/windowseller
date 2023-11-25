@@ -32,7 +32,7 @@ const ProfileUser = () => {
                     {
                         profileMode ?
                             <div className="relative">
-                                <ProfileForm />
+                                <ProfileForm callback={() => setProfileMode(false)}/>
                                 <button
                                     className="bottom-0 left-0 absolute btn_base bg-red-500 text-white font-black"
                                     onClick={() => setProfileMode(false)}

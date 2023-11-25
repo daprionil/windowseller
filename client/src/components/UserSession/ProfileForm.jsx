@@ -4,9 +4,24 @@ import Message, { typeMessages } from "../Message.jsx";
 import { errorsFieldValidations, fieldValidations, nameFields } from "../../utils/formValidations";
 import Loader from "../Loader";
 import useGetUserData from "../../hooks/useGetUserData.jsx";
+import updateBasicUserData from "../../handlers/updateBasicUserData.js";
+import useSessionUserStore from "../../stores/useSessionUserStore.js";
+import { useState } from "react";
 
-const ProfileForm = () => {
+const ProfileForm = ({callback}) => {
     const [loading, user] = useGetUserData();
+    const [ statusRequestForm, setStatusRequestForm ] = useState({type:null, msg: null});
+    const userSession = useSessionUserStore(({usersession}) => usersession);
+
+    const changeStatusRequest = (type, msg) => {
+        setStatusRequestForm({
+            type: ({
+                'error': typeMessages.ERROR,
+                'success': typeMessages.SUCCESS
+            })[type] ?? typeMessages.ERROR,
+            msg
+        })
+    }
 
     return (
         loading ?
@@ -47,11 +62,55 @@ const ProfileForm = () => {
 
                         return Object.fromEntries(errors);
                     }}
-                    onSubmit={(data) => {
-                        console.log(data);
+                    onSubmit={(
+                        {namecompany, eslogan, description, phone},
+                        {setSubmitting, ...args}
+                    ) => {
+                        console.log(args);
+                        const modifiedFields = {};
+                        const arrayFields = Object.entries({namecompany, eslogan, description, phone});
+                        
+                        //? Clear values modified
+                        for(let [key,val] of arrayFields){
+                            const areEquals = user[key] === val;
+                            if(!areEquals){
+                                modifiedFields[key] = val;
+                                continue;
+                            }
+                        }
+
+                        //! If doesn't exist fields to modify
+                        const existValuesToModify = !Object.entries(modifiedFields).length;
+                        if(existValuesToModify){
+                            changeStatusRequest(null, 'No hay valores para modificar');
+                            setSubmitting(false);
+                            return;
+                        }
+                        
+                        //? Generate request
+                        updateBasicUserData({session: userSession}, modifiedFields)
+                            .then(({data}) => {
+                                //* If the request will be successfully
+                                if(data.userUpdated){
+                                    changeStatusRequest(
+                                        'success',
+                                        'Tus datos han sido actualizados satisfactoriamente'
+                                    )
+                                    setTimeout(() => {
+                                        callback();
+                                    }, 3000);
+                                    return;
+                                }
+                            })
+                            .catch(() => {
+                                changeStatusRequest(null, 'Ha habido un problema inesperado, intentalo más tarde');
+                            })
+                            .finally(() => {
+                                setSubmitting(false);
+                            });
                     }}
                 >
-                    {({ handleSubmit, handleChange, isSubmitting, values, errors }) => (
+                    {({ handleSubmit, handleChange, isSubmitting, values, errors}) => (
                         <form
                             className="space-y-2 [&>label>input]:bg-stone-200"
                             onSubmit={handleSubmit}
@@ -116,6 +175,15 @@ const ProfileForm = () => {
                                     }
                                 </div>
                             </label>
+                            {
+                                statusRequestForm.type &&
+                                    <div className="text-center bg-gradient-to-br from-stone-200 to-stone-100 rounded-full px-10 pb-2 w-fit shadow-lg mx-auto">
+                                        <Message
+                                            msg={statusRequestForm.msg}
+                                            type={statusRequestForm.type}
+                                        />       
+                                    </div>
+                            }
                             {
                                 isSubmitting ?
                                     <div className="text-right pr-14 pt-6 pb-2">
