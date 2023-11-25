@@ -11,7 +11,7 @@ const ChangePasswordForm = ({ tokenId }) => {
     const [statusRequest, setStatusRequest] = useState(false);
 
     return (
-        !statusRequest ?
+        statusRequest ?
             <div className="py-6 px-8 space-y-4">
                 <SuccessIcon />
                 <p className="font-black text-2xl text-center">

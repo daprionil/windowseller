@@ -9,7 +9,7 @@ const LogInButton = () => {
 
     return (
         <button
-            className="btn_base bg-stone-100 font-black"
+            className="btn_base btn_base_hover bg-stone-100 font-black"
             onClick={handleClickButton}
         >
             Iniciar Sesión

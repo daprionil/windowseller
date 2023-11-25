@@ -6,7 +6,10 @@
 
 @layer utilities{
     .btn_base{
-        @apply shadow rounded-md px-4 py-2 hover:scale-[102%] scale-100 transform transition duration-200 before:content-[''] before:bg-red-400 before:w-full before:-left-full hover:before:left-0 before:top-0 overflow-hidden before:bg-opacity-30 before:transition-all before:filter before:hue-rotate-60 before:duration-200 before:ease-in-out relative before:absolute before:h-full
+        @apply shadow rounded-md px-4 py-2 overflow-hidden
+    }
+    .btn_base_hover{
+        @apply hover:scale-[102%] scale-100 transform transition duration-200 before:content-[''] before:bg-yellow-400 before:w-full before:-left-full hover:before:left-0 before:top-0 before:bg-opacity-30 before:transition-all before:filter before:duration-200 before:ease-in-out relative before:absolute before:h-full
     }
 }
 
@@ -17,9 +20,15 @@
     input[type="text"],
     input[type="email"],
     input[type="password"]{
-        @apply rounded-sm py-2 px-4 text-gray-700 bg-stone-200 w-full
+        @apply rounded-sm py-2 px-4 text-gray-700 bg-stone-200 w-full placeholder:font-bold
+    }
+    input[type="number"]{
+        @apply w-full p-2 bg-stone-100 placeholder:font-bold text-gray-700
     }
     p,span,textarea,h1,h2,h3,h4,h5,h6{
         @apply text-stone-800
+    }
+    textarea{
+        @apply rounded-sm py-2 px-4 text-gray-700 bg-stone-200 w-full h-full min-h-[50px] resize-none placeholder:font-bold
     }
 }
