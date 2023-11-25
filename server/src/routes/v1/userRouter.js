@@ -8,6 +8,7 @@ const putChangePasswordUser = require('./handlers/putChangePasswordUser');
 const authUser = require('../../middlewares/authUser.js');
 const getUser = require('./handlers/userHandlers/getUser.js');
 const updateDataUser = require('./handlers/userHandlers/updateDataUser');
+const userCategoryRouter = require('./userCategoryRouter');
 
 const UserRouter = Router();
 
@@ -37,10 +38,13 @@ UserRouter.route('/changepassword/:tokenId')
 
 //*##################################
 
-//! ####### Privdate User Routes
+//! ####### Private User Routes
 //? Return the basic user data
 UserRouter.get('/', authUser, getUser);
 UserRouter.put('/', authUser, updateDataUser);
+
+//? Categories
+UserRouter.use('/category', authUser , userCategoryRouter);
 
 
 //? Export router

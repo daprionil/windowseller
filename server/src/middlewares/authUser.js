@@ -16,8 +16,13 @@ module.exports = async function(req,res, next){
             throw CustomErrors.SintaxError('No es un formato de tóken válido');
         }
 
-        //* Validate if the token is avaliable
+        //* Validate if exist a token
         const tokenJWT = authorization.replace(/bearer/i, '').trim();
+        if(!tokenJWT){
+            throw CustomErrors.EmptyError('No existe un valor de autorización correspondiente');
+        };
+
+        //* Validate if the token is avaliable
         const decodedTokenDataUser = validateJWT(tokenJWT);
         if(!decodedTokenDataUser.id){
             throw CustomErrors.ErrorAuthentication('No está autorizado para continuar');
