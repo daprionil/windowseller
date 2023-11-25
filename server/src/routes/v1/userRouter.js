@@ -7,6 +7,7 @@ const validateToken = require('./handlers/validateToken');
 const putChangePasswordUser = require('./handlers/putChangePasswordUser');
 const authUser = require('../../middlewares/authUser.js');
 const getUser = require('./handlers/userHandlers/getUser.js');
+const updateDataUser = require('./handlers/userHandlers/updateDataUser');
 
 const UserRouter = Router();
 
@@ -39,6 +40,7 @@ UserRouter.route('/changepassword/:tokenId')
 //! ####### Privdate User Routes
 //? Return the basic user data
 UserRouter.get('/', authUser, getUser);
+UserRouter.put('/', authUser, updateDataUser);
 
 
 //? Export router

@@ -27,6 +27,12 @@ module.exports = async function(req,res, next){
         if(!userFind){
             throw CustomErrors.ErrorAuthentication('No se ha logrado encontrar un Usuario relacionado');
         }
+        //* If the user is enabled
+        const isEnableUser = userFind.enable;
+        if(!isEnableUser){
+            throw CustomErrors.UnAuthorization('Tu usuario no está habilitado');
+        };
+
         //* Save the user in the locals
         res.locals.userAuthorizate = userFind.dataValues;
         next();
