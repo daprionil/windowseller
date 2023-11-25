@@ -1,19 +1,10 @@
 const { Router } = require('express');
+const getCategoryHandler = require('./handlers/userCategoryHandlers/getCategoryHandler');
 
 const userCategoryRouter = Router();
 
 //* Generate routes
-userCategoryRouter.get('/:tokenIdCategory', (req,res) => {
-    try {
-        const { tokenIdCategory } = req.params;
-
-        res.send('Mi categoría' + tokenIdCategory);
-    } catch ({status, message}) {
-        res.status(status ?? 500).json({
-            error: message
-        })
-    }
-})
+userCategoryRouter.get('/:categoryId', getCategoryHandler);
 
 //? Export the router
 module.exports = userCategoryRouter;
