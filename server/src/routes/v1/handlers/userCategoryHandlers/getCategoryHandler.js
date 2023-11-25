@@ -4,15 +4,16 @@ const CustomErrors = require('../../../../utils/errors/CustomErrors');
 module.exports = async function(req,res){
     try {
         const { categoryId } = req.params;
-        const {id: userId} = res.locals.userAuthorizate;
+        //* Get the user object from database
+        const userObject = res.locals.userAuthorizate;
         
         //! If does't exist the necesary values
-        if(!categoryId && !userId){
+        if(!categoryId && !userObject.id){
             throw CustomErrors.ServerError('No ha sido posible retornar la categoría');
         }
 
         //! get the category
-        const category = await getCategoryController(categoryId, userId);
+        const category = await getCategoryController(categoryId, userObject.id);
         
         //! Validate if exist the category
         if(!category){
@@ -24,6 +25,6 @@ module.exports = async function(req,res){
     } catch ({status, message}) {
         res.status(status ?? 500).json({
             error: message
-        })
-    }
-}
+        });
+    };
+};

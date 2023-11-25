@@ -5,7 +5,7 @@ module.exports = function(database){
         id:{
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoincrement: true
+            autoIncrement: true
         },
         name:{
             type: DataTypes.STRING(45),

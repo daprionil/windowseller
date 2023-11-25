@@ -38,8 +38,8 @@ module.exports = async function(req,res, next){
             throw CustomErrors.UnAuthorization('Tu usuario no está habilitado');
         };
 
-        //* Save the user in the locals
-        res.locals.userAuthorizate = userFind.dataValues;
+        //* Save the user object in the locals
+        res.locals.userAuthorizate = userFind;
         next();
     } catch ({status, message}) {
         res.status(status ?? 500).json(
