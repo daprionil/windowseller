@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FaCircleUser } from 'react-icons/fa6';
-import { RiUserSettingsLine } from 'react-icons/ri';
+import { IoBusiness } from 'react-icons/io5';
+import { RiListSettingsLine } from 'react-icons/ri';
 
 import Loader from "../../components/Loader";
 import useGetUserData from "../../hooks/useGetUserData";
@@ -30,13 +30,13 @@ const ProfileUser = () => {
                                         className={`p-4 flex items-center cursor-pointer justify-center text-slate-100 text-3xl [&>svg]:drop-shadow-md ${!profileMode ? "bg-slate-500" : 'bg-slate-300'}`}
                                         onClick={() => setProfileMode(false)}
                                     >
-                                        <FaCircleUser />
+                                        <IoBusiness />
                                     </div>
                                     <div
                                         className={`p-4 flex items-center cursor-pointer justify-center text-slate-100 text-3xl [&>svg]:drop-shadow-md ${profileMode ? "bg-slate-500" : 'bg-slate-300'}`}
                                         onClick={() => setProfileMode(true)}
                                     >
-                                        <RiUserSettingsLine />
+                                        <RiListSettingsLine />
                                     </div>
                                 </div>
                                 <div className="p-8">
