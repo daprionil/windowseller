@@ -1,5 +1,6 @@
 module.exports = async function(objectUser){
     const categories = await objectUser.getCategories();
-
-    return categories;
+    const filteredCategories = categories.map(({dataValues}) => dataValues);
+    
+    return filteredCategories;
 };

@@ -19,6 +19,6 @@ module.exports = async function(categoryId, categoryName, UserId){
 
     //? Save the updated Values of the category
     const updatedCategory = await categoryFounded.save();
-
-    return updatedCategory;
+    
+    return updatedCategory.dataValues;
 };

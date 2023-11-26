@@ -8,5 +8,5 @@ module.exports = async function(categoryId, UserId){
         }
     });
 
-    return category;
+    return category.dataValues;
 };

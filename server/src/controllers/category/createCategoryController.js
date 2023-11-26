@@ -3,5 +3,5 @@ module.exports = async function(categoryName, User){
         category: categoryName
     });
 
-    return category;
+    return category.dataValues;
 };
