@@ -48,7 +48,7 @@ const useSessionUserStore = create((set, get) => ({
             }}));
         }
     },
-    setCategoryUser: async ({categoryname}) => {
+    createCategoryUser: async ({categoryname}) => {
         const { usersession } = get();
         
         //? Generate the creation category Request
