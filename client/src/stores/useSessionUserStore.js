@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import getAllCategoriesRequest from '../handlers/getAllCategoriesRequest';
+import createCategoryRequest from '../handlers/createCategoryRequest';
 
 const { VITE_NAME_STORAGE_TOKEN_SESSION } = import.meta.env;
 //? Search session user from the storage
@@ -22,6 +23,7 @@ const removeUserSessionOfStorage = () => {
 const useSessionUserStore = create((set, get) => ({
     usersession: getUserSessionStorage() ?? false,
     user: null,
+    userCategories: [],
     setUserSession: ({ sessionToken }) => {
         //! Set session in the store
         setUserSessionStorage(sessionToken);
@@ -32,7 +34,6 @@ const useSessionUserStore = create((set, get) => ({
         removeUserSessionOfStorage();
         set(() => ({ usersession: false }));
     },
-    userCategories: [],
     getAllCategories: async () => {
         const userSession = get().usersession;
         if(!userSession) return;
@@ -47,6 +48,20 @@ const useSessionUserStore = create((set, get) => ({
             }}));
         }
     },
+    setCategoryUser: async ({categoryname}) => {
+        const { usersession } = get();
+        
+        //? Generate the creation category Request
+        const { data } = await createCategoryRequest({session: usersession, categoryname});
+        
+        //! If the category was not created
+        if(!data.createdCategory) throw new Error();
+
+        //? Set category created in the store
+        set(({userCategories}) => ({
+            userCategories: [data.createdCategory,...userCategories]
+        }));
+    }
 }));
 
 export default useSessionUserStore;
