@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import getAllCategoriesRequest from '../handlers/getAllCategoriesRequest';
 
 const { VITE_NAME_STORAGE_TOKEN_SESSION } = import.meta.env;
 //? Search session user from the storage
@@ -30,7 +31,22 @@ const useSessionUserStore = create((set, get) => ({
         //! Remove session in the store
         removeUserSessionOfStorage();
         set(() => ({ usersession: false }));
-    }
+    },
+    userCategories: [],
+    getAllCategories: async () => {
+        const userSession = get().usersession;
+        if(!userSession) return;
+        try {
+            const { data } = await getAllCategoriesRequest({session: userSession});
+            if(data.userCategories){
+                set(() => ({userCategories: data.userCategories}))
+            }
+        } catch (error) {
+            set(() => ({userCategories: {
+                error: 'No ha sido posible obtener tus categorías'
+            }}))
+        }
+    },
 }));
 
 export default useSessionUserStore;

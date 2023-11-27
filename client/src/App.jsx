@@ -6,10 +6,11 @@ import SignInPage from './pages/LandingPage/SignInPage';
 import ConfirmAccount from './pages/ConfirmAccount';
 import ChangePassword from './pages/ChangePassword';
 import ForgotPassword from './pages/LandingPage/ForgotPassword';
-import UserSessionContainer from './pages/UserSession/UserSessionContainer';
 import HomeUser from './pages/UserSession/HomeUser';
 import PrivateUserRoute from './components/UserSession/PrivateUserRoute';
 import ProfileUser from './pages/UserSession/ProfileUser';
+import CategoriesUser from './pages/UserSession/CategoriesUser';
+import UserSessionContainer from './components/UserSession/UserSessionContainer';
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                 }>
                 <Route index element={<HomeUser />}/>
                 <Route path='profile' element={<ProfileUser />}/>
+                <Route path='categories' element={<CategoriesUser />}/>
             </Route>
         </Routes>
     )

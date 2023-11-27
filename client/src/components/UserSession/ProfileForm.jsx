@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { Formik } from "formik"
 
 import Message, { typeMessages } from "../Message.jsx";
 import { errorsFieldValidations, fieldValidations, nameFields } from "../../utils/formValidations";
 import Loader from "../Loader";
 import useGetUserData from "../../hooks/useGetUserData.jsx";
-import updateBasicUserData from "../../handlers/updateBasicUserData.js";
+import updateBasicUserDataRequest from "../../handlers/updateBasicUserDataRequest.js";
 import useSessionUserStore from "../../stores/useSessionUserStore.js";
-import { useState } from "react";
 
 const ProfileForm = ({callback}) => {
     const [loading, user] = useGetUserData();
@@ -88,7 +88,7 @@ const ProfileForm = ({callback}) => {
                         }
                         
                         //? Generate request
-                        updateBasicUserData({session: userSession}, modifiedFields)
+                        updateBasicUserDataRequest({session: userSession}, modifiedFields)
                             .then(({data}) => {
                                 //* If the request will be successfully
                                 if(data.userUpdated){

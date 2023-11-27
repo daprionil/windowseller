@@ -11,7 +11,7 @@ const ProfileUser = () => {
     return (
         <div>
             <div className="bg-white shadow py-2 px-4 rounded-md">
-                <h1 className="font-black text-lg">Mi Perfil</h1>
+                <h1 className="font-black text-xl">Mi Perfil</h1>
             </div>
             <div className="mt-6 bg-white shadow-xl rounded-md overflow-hidden h-full">
                 <div className="grid grid-cols-2">

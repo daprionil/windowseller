@@ -4,45 +4,45 @@ import LogOutButton from './LogOutButton.jsx';
 
 const HeaderUserAccount = () => {
     const activeRouteNavLink = ({isActive}) => (
-        isActive ?  'bg-stone-400' : 'bg-stone-300'
+        isActive ?  'bg-slate-500 text-white border-r-8 border-white' : 'bg-slate-400'
     );
 
     return (
-        <header className="bg-stone-200 shadow-lg h-full text-center">
-            <div className='p-4 border-b-2 border-stone-300 mb-3'>
+        <header className="bg-slate-300 shadow-lg h-full text-center">
+            <div className='p-4 border-b-2 border-slate-300 mb-3'>
                 <Link to='/account'>
                     <WindowSellerIcon />
                 </Link>
             </div>
             <div>
                 <nav>
-                    <ul className='flex flex-col [&>a]:p-2 [&>a]:transition [&>a]:duration-200 [&>a]:ease-out [&>a]:font-bold [&>a:hover]:bg-stone-400 [&>a]:w-full [&>a[checked]]:bg-stone-300 pl-3 [&>a]:rounded-l-full gap-2 '>
+                    <ul className='flex flex-col [&>a]:p-2 [&>a]:transition [&>a]:duration-[1s] [&>a]:ease-out [&>a]:font-bold [&>a]:w-full [&>a[checked]]:bg-slate-300 pl-3 [&>a]:rounded-l-full gap-2 '>
                         <NavLink to='profile' className={activeRouteNavLink}>
                             <li>
                                 Perfil
                             </li>
                         </NavLink>
-                        <NavLink to='profil' className={activeRouteNavLink}>
+                        <NavLink to='categories' className={activeRouteNavLink}>
                             <li>
                                 Categorías
                             </li>
                         </NavLink>
-                        <NavLink to='profil' className={activeRouteNavLink}>
+                        <NavLink to=' ' className={activeRouteNavLink}>
                             <li>
                                 Productos
                             </li>
                         </NavLink>
-                        <NavLink to='profil' className={activeRouteNavLink}>
+                        <NavLink to=' ' className={activeRouteNavLink}>
                             <li>
                                 Catálogos
                             </li>
                         </NavLink>
-                        <NavLink to='profil' className={activeRouteNavLink}>
+                        <NavLink to=' ' className={activeRouteNavLink}>
                             <li>
                                 Temas
                             </li>
                         </NavLink>
-                        <NavLink to='profil' className={activeRouteNavLink}>
+                        <NavLink to=' ' className={activeRouteNavLink}>
                             <li>
                                 Configuración
                             </li>

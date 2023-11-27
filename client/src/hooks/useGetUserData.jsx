@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import getUserDataSession from "../handlers/getUserDataSession";
+import getUserDataSession from "../handlers/getUserDataSessionRequest";
 import useSessionUserStore from "../stores/useSessionUserStore";
 
 const useGetUserData = () => {

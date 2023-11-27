@@ -1,11 +1,33 @@
 import { Outlet } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { CiMenuFries } from 'react-icons/ci';
+import { useShallow } from 'zustand/react/shallow';
 
-import HeaderUserAccount from "../../components/UserSession/HeaderUserAccount"
+import HeaderUserAccount from "./HeaderUserAccount"
+import useSessionUserStore from "../../stores/useSessionUserStore";
 
 const UserSessionContainer = () => {
     const [ headerUIMode, setHeaderUIMode ] = useState(false);
+    const { getAllCategories} = useSessionUserStore(
+        useShallow(({ getAllCategories}) => ({
+             getAllCategories
+        }))
+    );
+    const refRequests = useRef(false);
+
+    useEffect(() => {
+        if(refRequests.current) return;
+        refRequests.current = true;
+        
+        //? STARTS THE APP
+        const promisesUserSessionStarts = [
+            getAllCategories()
+        ];
+        Promise.allSettled(promisesUserSessionStarts).finally(() => {
+            refRequests.current = false;
+        });
+    },[]);
+    
     return (
         <div className="md:grid md:grid-cols-12 h-screen">
             <button
