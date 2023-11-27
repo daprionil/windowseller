@@ -25,12 +25,19 @@ const CategoriesUser = () => {
                         </IconContext.Provider> Crear
                     </button>
                 </div>
-                <div className='py-6'>
-                    <div className='text-center text-lg'>
-                        <p className='underline'>Aún <span className='font-black'>no</span> tienes categorías</p>
-                    </div>
+                <div className='py-6 flex flex-col gap-2'>
                     {
-                        JSON.stringify(userCategories)
+                        userCategories?.error ?
+                            <p>{userCategories.error}</p>
+                        : !userCategories.length ?
+                                <div className='text-center text-lg'>
+                                    <p className='underline'>Aún <span className='font-black'>no</span> tienes categorías</p>
+                                </div>
+                            :   userCategories.map(({category}, idx) => (
+                                <div className='shadow bg-white rounded-md px-6 py-2'>
+                                    <p key={idx}>{category}</p>
+                                </div>
+                            ))
                     }
                 </div>
             </div>

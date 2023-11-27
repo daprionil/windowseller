@@ -44,7 +44,7 @@ const useSessionUserStore = create((set, get) => ({
         } catch (error) {
             set(() => ({userCategories: {
                 error: 'No ha sido posible obtener tus categorías'
-            }}))
+            }}));
         }
     },
 }));
