@@ -6,6 +6,7 @@ import ListCategories from '../../components/UserSession/ListCategories';
 import showAlert from '../../config/showAlert';
 import FormCreateCategory from '../../components/UserSession/FormCreateCategory';
 import useSessionUserStore from '../../stores/useSessionUserStore';
+import Message, { typeMessages } from '../../components/Message';
 
 const CategoriesUser = () => {
     const userCategories = useSessionUserStore(({ userCategories }) => userCategories);
@@ -42,7 +43,12 @@ const CategoriesUser = () => {
                 <div className='py-6 flex flex-col gap-2'>
                     {
                         userCategories?.error ?
-                            <p>{userCategories.error}</p>
+                            <div className='text-center pb-2 px-6 mx-auto shadow rounded-md w-fit bg-gradient-oliver'>
+                                <Message
+                                    msg='Ha habido un error inesperado'
+                                    type={typeMessages.ERROR}
+                                />
+                            </div>
                             : !userCategories.length ?
                                 <div className='text-center text-lg'>
                                     <p className='underline'>Aún <span className='font-black'>no</span> tienes categorías</p>

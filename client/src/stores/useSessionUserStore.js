@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import getAllCategoriesRequest from '../handlers/getAllCategoriesRequest';
 import createCategoryRequest from '../handlers/createCategoryRequest';
+import deleteCategoryRequest from '../handlers/deleteCategoryRequest';
 
 const { VITE_NAME_STORAGE_TOKEN_SESSION } = import.meta.env;
 //? Search session user from the storage
@@ -61,6 +62,25 @@ const useSessionUserStore = create((set, get) => ({
         set(({userCategories}) => ({
             userCategories: [data.createdCategory,...userCategories]
         }));
+    },
+    deleteCategoryUser: async ({categoryId}) => {
+        const { usersession } = get();
+        
+        //? Delete category with the request
+        const { data } = await deleteCategoryRequest({
+            session: usersession,
+            categoryId
+        });
+
+        //? If the category was not deleted
+        if(!data.deleted) throw new Error();
+        
+        //? Delete category in the store
+        set(({userCategories}) => ({
+            userCategories: userCategories.filter(({id}) => id !== categoryId)
+        }), false);
+        
+        return data;
     }
 }));
 

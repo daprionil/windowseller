@@ -11,6 +11,9 @@
     .btn_base_hover{
         @apply hover:scale-[102%] scale-100 transform transition duration-200 before:content-[''] before:bg-white before:w-full before:-left-full hover:before:left-0 before:top-0 before:bg-opacity-30 before:transition-all before:filter before:duration-200 before:ease-in-out relative before:absolute before:h-full
     }
+    .bg-gradient-oliver{
+        @apply bg-gradient-to-br from-stone-200 to-stone-100
+    }
 }
 
 @layer base{

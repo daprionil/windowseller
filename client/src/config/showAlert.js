@@ -12,7 +12,6 @@ const toast = showAlert.mixin({
     timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
-        console.log(toast, { ...Swal });
         toast.onmouseenter = Swal.stopTimer;
         toast.onmouseleave = Swal.resumeTimer;
     }

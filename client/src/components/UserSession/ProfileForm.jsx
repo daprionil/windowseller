@@ -64,9 +64,8 @@ const ProfileForm = ({callback}) => {
                     }}
                     onSubmit={(
                         {namecompany, eslogan, description, phone},
-                        {setSubmitting, ...args}
+                        {setSubmitting}
                     ) => {
-                        console.log(args);
                         const modifiedFields = {};
                         const arrayFields = Object.entries({namecompany, eslogan, description, phone});
                         
@@ -177,7 +176,7 @@ const ProfileForm = ({callback}) => {
                             </label>
                             {
                                 statusRequestForm.type &&
-                                    <div className="text-center bg-gradient-to-br from-stone-200 to-stone-100 rounded-full px-10 pb-2 w-fit shadow-lg mx-auto">
+                                    <div className="text-center bg-gradient-oliver rounded-full px-10 pb-2 w-fit shadow-lg mx-auto">
                                         <Message
                                             msg={statusRequestForm.msg}
                                             type={statusRequestForm.type}

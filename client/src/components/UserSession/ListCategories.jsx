@@ -24,7 +24,10 @@ const ListCategories = ({ userCategories }) => {
                 <IconContext.Provider value={{size: '25px'}}>
                     {
                         userCategories.map((category, idx) => (
-                            <TrowCategoryCard {...category} key={idx}/>
+                            <TrowCategoryCard
+                                {...category}
+                                key={idx}
+                            />
                         ))
                     }
                 </IconContext.Provider>
