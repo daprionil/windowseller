@@ -4,6 +4,7 @@ import useSessionUserStore from '../../stores/useSessionUserStore.js';
 import Swal from "sweetalert2";
 import { toast } from "../../config/showAlert.js";
 import Message, { typeMessages } from "../Message.jsx";
+import { fieldValidations } from "../../utils/formValidations.js";
 
 const FormCreateCategory = () => {
     const { createCategoryUser } = useSessionUserStore(({ createCategoryUser }) => ({createCategoryUser}));
@@ -14,7 +15,7 @@ const FormCreateCategory = () => {
                 categoryname: ''
             }}
             validate={({ categoryname }) => {
-                if (!categoryname || categoryname.length < 4 || categoryname.length > 20) {
+                if (fieldValidations.categoryname(categoryname)) {
                     return {
                         categoryname: 'El nombre de categoría no cuenta con los carácteres admitidos [4-20]'
                     };

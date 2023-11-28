@@ -13,6 +13,7 @@ const fieldValidations = {
     password:(val) => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?./&])[A-Za-z\d@/.$!%*#?&]{8,}$/g.test(val),
     password2: (pass, {comparepass}) => pass === comparepass,
     phone: (val) => !isNaN(val) && (val + '').length >= 10 && (val + '').length <= 14,
+    categoryname: (val) => (!val || val.length < 4 || val.length > 20),
 };
 
 const errorsFieldValidations = {

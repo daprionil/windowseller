@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import getAllCategoriesRequest from '../handlers/getAllCategoriesRequest';
 import createCategoryRequest from '../handlers/createCategoryRequest';
 import deleteCategoryRequest from '../handlers/deleteCategoryRequest';
+import updateCategoryRequest from '../handlers/updateCategoryRequest';
 
 const { VITE_NAME_STORAGE_TOKEN_SESSION } = import.meta.env;
 //? Search session user from the storage
@@ -81,6 +82,29 @@ const useSessionUserStore = create((set, get) => ({
         }), false);
         
         return data;
+    },
+    updateCategoryUser: async ({categoryName, categoryId}) => {
+        const { usersession } = get();
+        
+        //? Update category with the request
+        const { data } = await updateCategoryRequest({
+            session: usersession,
+            categoryName,
+            categoryId
+        });
+
+        //? If the category was not updated
+        if(!data.updatedCategory) throw new Error();
+        
+        //? Update category in the store
+        set(({userCategories}) => ({
+            userCategories: userCategories.map((category) => {
+                if(category.id === data.updatedCategory.id){
+                    return data.updatedCategory;
+                }
+                return category;
+            })
+        }), false);
     }
 }));
 

@@ -3,11 +3,16 @@ import { useState } from 'react';
 import { CiSquareRemove, CiEdit } from 'react-icons/ci';
 import useSessionUserStore from '../../stores/useSessionUserStore';
 import showAlert, { toast } from '../../config/showAlert';
+import { fieldValidations } from '../../utils/formValidations';
+import Message, { typeMessages } from '../Message';
 
 const TrowCategoryCard = ({ category, id }) => {
     const [editMode, setEditMode] = useState(false);
-    const deleteCategoryUser = useSessionUserStore(
-        ({ deleteCategoryUser }) => deleteCategoryUser
+    const { deleteCategoryUser, updateCategoryUser } = useSessionUserStore(
+        ({ deleteCategoryUser,updateCategoryUser }) => ({
+            deleteCategoryUser,
+            updateCategoryUser
+        })
     );
 
     const handleEditMode = () => setEditMode(state => !state);
@@ -51,23 +56,60 @@ const TrowCategoryCard = ({ category, id }) => {
                     editMode ?
                         <Formik
                             initialValues={{
-                                category
+                                categoryname: category
+                            }}
+                            validate={({categoryname}) => {
+                                if (fieldValidations.categoryname(categoryname)) {
+                                    return {
+                                        categoryname: 'Valor de nombre de categoría inválido'
+                                    };
+                                }
+                            }}
+                            onSubmit={({categoryname}, {setSubmitting})=> {
+                                setSubmitting(true);
+                                updateCategoryUser({categoryName:categoryname, categoryId: id})
+                                    .then(() => {
+                                        toast.fire({
+                                            icon: "success",
+                                            title: 'Categoría actualizada Exitosamente'
+                                        })
+                                        handleEditMode();
+                                    })
+                                    .catch(() => {
+                                        toast.fire({
+                                            icon: "error",
+                                            title: 'Ha habido un error',
+                                            text: 'La Categoría no se ha actualizado'
+                                        })
+                                    })
+                                    .finally(() => {
+                                        setSubmitting(false);
+                                    })
                             }}
                         >
-                            {({ values, handleChange, handleSubmit }) => (
+                            {({ values, errors, handleChange, handleSubmit, isSubmitting }) => (
                                 <form
                                     className='flex flex-col pb-2 md:flex-row items-center gap-2 pl-4 [&>input[type="text"]]:outline-none [&>input[type="text"]]:text-stone-500 [&>input[type="text"]]:border-b-2 [&>input[type="text"]]:border-slate-500 [&>input[type="text"]]:bg-transparent [&>input[type="submit"]]:bg-slate-500 [&>input[type="submit"]]:rounded-md [&>input[type="submit"]]:h-fit'
                                     onSubmit={handleSubmit}
                                 >
-                                    <input
-                                        type="text"
-                                        name="category"
-                                        value={values.category}
-                                        onChange={handleChange}
-                                        placeholder='Nombre Categoría'
-                                    />
+                                    <div className="flex flex-col items-center pt-2 justify-center">
+                                        <input
+                                            type="text"
+                                            name="categoryname"
+                                            value={values.categoryname}
+                                            onChange={handleChange}
+                                            placeholder='Nombre Categoría'
+                                        />
+                                        {
+                                            errors.categoryname &&
+                                            <div className="text-sm">
+                                                <Message msg={errors.categoryname} type={typeMessages.ERROR} />
+                                            </div>
+                                        }
+                                    </div>
                                     <input
                                         className='text-sm p-2 text-white cursor-pointer'
+                                        disabled={isSubmitting}
                                         type="submit"
                                         value="Guardar"
                                     />
