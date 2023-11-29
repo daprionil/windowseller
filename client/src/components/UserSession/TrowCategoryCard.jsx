@@ -1,5 +1,5 @@
 import { Formik } from 'formik';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { CiSquareRemove, CiEdit } from 'react-icons/ci';
 import useSessionUserStore from '../../stores/useSessionUserStore';
 import showAlert, { toast } from '../../config/showAlert';
@@ -15,7 +15,9 @@ const TrowCategoryCard = ({ category, id }) => {
         })
     );
 
-    const handleEditMode = () => setEditMode(state => !state);
+    const handleEditMode = () => {
+        setEditMode(state => !state);
+    };
     const handleDeleteCategory = async () => {
         const alert = await showAlert.fire({
             icon: 'question',
@@ -99,6 +101,7 @@ const TrowCategoryCard = ({ category, id }) => {
                                             value={values.categoryname}
                                             onChange={handleChange}
                                             placeholder='Nombre Categoría'
+                                            autoFocus
                                         />
                                         {
                                             errors.categoryname &&
