@@ -39,12 +39,8 @@ const FilterOrderCategories = ({setSelectedTypeOrder, selectedTypeOrder}) => {
         setIsOpenSelect(state => !state);
     };
 
-    const handleClickOptionOrder = (evt) => {
-        const valueOrderOption = Number(evt.target.dataset.value);
-        //! If the valueOrder is undefined or the value is the same as what exists in the store
-        if(valueOrderOption == selectedTypeOrder || valueOrderOption === undefined){
-            return
-        };
+    const setOptionOrder = (valueOrderOption) => {
+        if(isNaN(valueOrderOption) || valueOrderOption === undefined) return;
 
         setSelectedTypeOrder(valueOrderOption);
         handleOpenSelect();
@@ -67,58 +63,51 @@ const FilterOrderCategories = ({setSelectedTypeOrder, selectedTypeOrder}) => {
             >
                 <div
                     className='px-2 py-1 bg-slate-200 border-b-2 border-slate-400'
-                    data-value="1"
-                    onClick={handleClickOptionOrder}
+                    onClick={() => setOptionOrder(1)}
                 >
-                    Ordenar
+                    <p>Ordenar</p>
                     <IoFilter />
                 </div>
                 <div
                     className='px-2 py-1 bg-slate-200'
-                    onClick={handleClickOptionOrder}
-                    data-value="2"
+                    onClick={() => setOptionOrder(2)}
                 >
-                    Productos
+                    <p>Productos</p>
                     <FaArrowDown19 />
                 </div>
                 <div
                     className='px-2 py-1 bg-slate-200'
-                    onClick={handleClickOptionOrder}
-                    data-value="3"
+                    onClick={() => setOptionOrder(3)}
                 >
-                    Productos
+                    <p>Productos</p>
                     <FaArrowUp91 />
                 </div>
                 <div
                     className='px-2 py-1 bg-slate-200'
-                    onClick={handleClickOptionOrder}
-                    data-value="4"
+                    onClick={() => setOptionOrder(4)}
                 >
-                    Catalogos
+                    <p>Catalogos</p>
                     <FaArrowDown19 />
                 </div>
                 <div
                     className='px-2 py-1 bg-slate-200'
-                    onClick={handleClickOptionOrder}
-                    data-value="5"
+                    onClick={() => setOptionOrder(5)}
                 >
-                    Catalogos
+                    <p>Catalogos</p>
                     <FaArrowUp91 />
                 </div>
                 <div
                     className='px-2 py-1 bg-slate-200'
-                    onClick={handleClickOptionOrder}
-                    data-value="6"
+                    onClick={() => setOptionOrder(6)}
                 >
-                    Creación
+                    <p>Creación</p>
                     <FaArrowDownWideShort />
                 </div>
                 <div
                     className='px-2 py-1 bg-slate-200'
-                    onClick={handleClickOptionOrder}
-                    data-value="7"
+                    onClick={() => setOptionOrder(7)}
                 >
-                    Creación
+                    <p>Creación</p>
                     <FaArrowUpShortWide />
                 </div>
             </div>
