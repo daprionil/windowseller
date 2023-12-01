@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Loader from "../Loader";
 import useSessionUserStore from "../../stores/useSessionUserStore";
-import getUserDataSession from "../../handlers/getUserDataSession";
+import getUserDataSessionRequest from "../../handlers/getUserDataSessionRequest";
 
 const PrivateUserRoute = ({ children }) => {
     const [ validStarsSession, setValidStarsSession ] = useState(null);
@@ -24,7 +24,7 @@ const PrivateUserRoute = ({ children }) => {
             }
             
             //? ###### Validate Session with GET/v1/users/
-            getUserDataSession({session:userSession})
+            getUserDataSessionRequest({session:userSession})
                 .then(({data}) => {
                     //? Apriori. CREATE ROUTE USER TO SEARCH OPEN SESSIONS IN THE STORAGE DB TO VALIDATE LOG INS
                     //! Is the user is enable to stars session
@@ -54,7 +54,7 @@ const PrivateUserRoute = ({ children }) => {
                     </div>
                 : validStarsSession ?
                         children
-                    :   <Navigate to='/' replace />
+                    :   <Navigate to='/log-in' replace />
             }
         </>
     )

@@ -5,6 +5,7 @@ import { useState } from "react";
 import registerUserRequest from "../../handlers/registerUserRequest";
 import SuccessIcon from "../SuccessIcon";
 import LogInButton from "../LogInButton";
+import Loader from "../Loader";
 
 const SignInForm = () => {
     const [sectionActive, setSectionActive] = useState(0);
@@ -47,7 +48,7 @@ const SignInForm = () => {
                 return Object.fromEntries(errors);
             }}
             onSubmit={(values, { resetForm, setSubmitting, setFieldError }) => {
-                setSubmitting(false);
+                setSubmitting(true);
                 const {namecompany, description, eslogan, phone, email, password} = values;
                 registerUserRequest({namecompany, description, eslogan, phone, email, password})
                     .then(({data}) => {
@@ -66,10 +67,10 @@ const SignInForm = () => {
                         }
                         setFieldError('base', data.error);
                     })
-                    .finally(() => setSubmitting(true));
+                    .finally(() => setSubmitting(false));
             }}
         >
-            {({ handleChange, handleSubmit, values, errors }) => (
+            {({ handleChange, handleSubmit, values, errors, isSubmitting }) => (
                 <form
                     className='py-8 px-6'
                     onSubmit={handleSubmit}
@@ -219,13 +220,21 @@ const SignInForm = () => {
                             errors.base && <Message msg={errors.base} type={typeMessages.ERROR}/>
                         }
                         <div className="flex justify-between items-center flex-nowrap">
-                            <button
-                                type="submit"
-                                className='btn_base font-bold text-white bg-stone-500 cursor-pointer'
-                                style={{ background: "rgb(77, 69, 61)" }}
-                            >
-                                Registrarse
-                            </button>
+                            <div className="py-2">
+                                {
+                                    isSubmitting ?
+                                        <div className=" transform scale-90">
+                                            <Loader />
+                                        </div>
+                                    :   <button
+                                            type="submit"
+                                            className='btn_base font-bold text-white bg-stone-500 cursor-pointer'
+                                            style={{ background: "rgb(77, 69, 61)" }}
+                                        >
+                                            Registrarse
+                                        </button>
+                                }
+                            </div>
                             <button
                                 className="btn_base text-white font-bold"
                                 style={{ background: "rgb(123, 118, 112)" }}

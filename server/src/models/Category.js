@@ -12,6 +12,6 @@ module.exports = function(database){
             allowNull: false
         }
     }, {
-        timestamps: false
+        timestamps: true
     })
 }

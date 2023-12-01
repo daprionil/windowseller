@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { Formik } from "formik"
 
 import Message, { typeMessages } from "../Message.jsx";
 import { errorsFieldValidations, fieldValidations, nameFields } from "../../utils/formValidations";
 import Loader from "../Loader";
 import useGetUserData from "../../hooks/useGetUserData.jsx";
-import updateBasicUserData from "../../handlers/updateBasicUserData.js";
+import updateBasicUserDataRequest from "../../handlers/updateBasicUserDataRequest.js";
 import useSessionUserStore from "../../stores/useSessionUserStore.js";
-import { useState } from "react";
 
 const ProfileForm = ({callback}) => {
     const [loading, user] = useGetUserData();
@@ -64,9 +64,8 @@ const ProfileForm = ({callback}) => {
                     }}
                     onSubmit={(
                         {namecompany, eslogan, description, phone},
-                        {setSubmitting, ...args}
+                        {setSubmitting}
                     ) => {
-                        console.log(args);
                         const modifiedFields = {};
                         const arrayFields = Object.entries({namecompany, eslogan, description, phone});
                         
@@ -88,7 +87,7 @@ const ProfileForm = ({callback}) => {
                         }
                         
                         //? Generate request
-                        updateBasicUserData({session: userSession}, modifiedFields)
+                        updateBasicUserDataRequest({session: userSession}, modifiedFields)
                             .then(({data}) => {
                                 //* If the request will be successfully
                                 if(data.userUpdated){
@@ -177,7 +176,7 @@ const ProfileForm = ({callback}) => {
                             </label>
                             {
                                 statusRequestForm.type &&
-                                    <div className="text-center bg-gradient-to-br from-stone-200 to-stone-100 rounded-full px-10 pb-2 w-fit shadow-lg mx-auto">
+                                    <div className="text-center bg-gradient-oliver rounded-full px-10 pb-2 w-fit shadow-lg mx-auto">
                                         <Message
                                             msg={statusRequestForm.msg}
                                             type={statusRequestForm.type}
