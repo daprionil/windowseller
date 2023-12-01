@@ -1,12 +1,12 @@
 import { Formik } from 'formik';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { CiSquareRemove, CiEdit } from 'react-icons/ci';
 import useSessionUserStore from '../../stores/useSessionUserStore';
 import showAlert, { toast } from '../../config/showAlert';
 import { fieldValidations } from '../../utils/formValidations';
 import Message, { typeMessages } from '../Message';
 
-const TrowCategoryCard = ({ category, id }) => {
+const TrowCategoryCard = ({ category, id, ...args}) => {
     const [editMode, setEditMode] = useState(false);
     const { deleteCategoryUser, updateCategoryUser } = useSessionUserStore(
         ({ deleteCategoryUser,updateCategoryUser }) => ({

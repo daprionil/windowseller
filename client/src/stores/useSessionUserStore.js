@@ -4,6 +4,18 @@ import createCategoryRequest from '../handlers/createCategoryRequest';
 import deleteCategoryRequest from '../handlers/deleteCategoryRequest';
 import updateCategoryRequest from '../handlers/updateCategoryRequest';
 
+//* Values
+const typeOrders = {
+    normalOrder: 1,
+    countUpProducts: 2,
+    countDownProducts: 3,
+    countUpCatalogs: 4,
+    countDownCatalogs: 5,
+    downCreated: 6,
+    upCreaded: 7
+}
+
+//* Functions
 const { VITE_NAME_STORAGE_TOKEN_SESSION } = import.meta.env;
 //? Search session user from the storage
 const getUserSessionStorage = () => (
@@ -21,7 +33,7 @@ const removeUserSessionOfStorage = () => {
     localStorage.removeItem(VITE_NAME_STORAGE_TOKEN_SESSION);
 };
 
-//?  Store to manage the user info
+//*  Store to manage the user info
 const useSessionUserStore = create((set, get) => ({
     usersession: getUserSessionStorage() ?? false,
     user: null,
@@ -105,7 +117,54 @@ const useSessionUserStore = create((set, get) => ({
                 return category;
             })
         }), false);
+    },
+    orderCategories: (typeOrder) => {
+        const userCategories = get().userCategories;
+        const typeOrdersFunctions = {
+            [typeOrders.countDownCatalogs]: (categories = []) => {
+                return categories.sort(({catalogs: cA = 0},{catalogs:cB = 0}) => {
+                    return cA.length - cB.length;
+                });
+            },
+            [typeOrders.countUpCatalogs]: (categories = []) => {
+                return categories.sort(({catalogs: cA = 0},{catalogs:cB = 0}) => {
+                    return cB.length - cA.length;
+                });
+            },
+            [typeOrders.countDownProducts]: (categories = []) => {
+                return categories.sort(({products: pA = 0},{products:pB = 0}) => {
+                    return pA.length - pB.length;
+                });
+            },
+            [typeOrders.countUpProducts]: (categories = []) => {
+                return categories.sort(({products: pA = 0},{products:pB = 0}) => {
+                    return pB.length - pA.length;
+                });
+            },
+            [typeOrders.downCreated]: (categories = []) => {
+                return categories.sort(({createdAt: a},{createdAt: b}) => {
+                    const aDateTime = (new Date(a)).getTime();
+                    const bDateTime = (new Date(b)).getTime();
+                    return bDateTime - aDateTime;
+                });
+            },
+            [typeOrders.upCreaded]: (categories = []) => {
+                return categories.sort(({createdAt: a},{createdAt: b}) => {
+                    const aDateTime = (new Date(a)).getTime();
+                    const bDateTime = (new Date(b)).getTime();
+                    return aDateTime - bDateTime;
+                });
+            }
+        };
+
+        if(!userCategories.length) return;
+        set(({userCategories}) => ({
+            userCategories: typeOrdersFunctions[typeOrder](userCategories)
+        }), false);
     }
 }));
 
 export default useSessionUserStore;
+export {
+    typeOrders
+}

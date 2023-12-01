@@ -4,14 +4,20 @@ import { MdAdd } from 'react-icons/md';
 import ListCategories from '../../components/UserSession/ListCategories';
 import showAlert from '../../config/showAlert';
 import FormCreateCategory from '../../components/UserSession/FormCreateCategory';
-import useSessionUserStore from '../../stores/useSessionUserStore';
+import useSessionUserStore, { typeOrders } from '../../stores/useSessionUserStore';
 import Message, { typeMessages } from '../../components/Message';
 import { useEffect, useState } from 'react';
 import FilterOrderCategories from '../../components/UserSession/FilterOrderCategories';
+import { useShallow } from 'zustand/react/shallow';
 
 const CategoriesUser = () => {
-    const userCategories = useSessionUserStore(({ userCategories }) => userCategories);
-    const [selectedTypeOrder, setSelectedTypeOrder ] = useState(1);
+    const {userCategories,orderCategories} = useSessionUserStore(
+        useShallow(({ userCategories, orderCategories }) => ({
+            userCategories,
+            orderCategories
+        }))
+    );
+    const [selectedTypeOrder, setSelectedTypeOrder ] = useState(typeOrders.downCreated);
 
     const handleClickCreateCategory = () => {
         showAlert.fire({
@@ -23,8 +29,13 @@ const CategoriesUser = () => {
     };
 
     useEffect(() => {
-        console.log(selectedTypeOrder);
+        //! Set here filters
+        orderCategories(selectedTypeOrder);
     },[selectedTypeOrder]);
+
+    useEffect(() => {
+        console.log(userCategories);
+    },[userCategories]);
 
     return (
         <div className="space-y-6">
