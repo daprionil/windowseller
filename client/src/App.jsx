@@ -11,6 +11,8 @@ import PrivateUserRoute from './components/UserSession/PrivateUserRoute';
 import ProfileUser from './pages/UserSession/ProfileUser';
 import CategoriesUser from './pages/UserSession/CategoriesUser';
 import UserSessionContainer from './components/UserSession/UserSessionContainer';
+import ProductsPage from './pages/ProductsPage';
+import CatalogsPage from './pages/CatalogsPage';
 
 function App() {
     return (
@@ -35,6 +37,8 @@ function App() {
                 <Route index element={<HomeUser />}/>
                 <Route path='profile' element={<ProfileUser />}/>
                 <Route path='categories' element={<CategoriesUser />}/>
+                <Route path='products' element={<ProductsPage />}/>
+                <Route path='catalogs' element={<CatalogsPage />}/>
             </Route>
         </Routes>
     )

@@ -27,12 +27,12 @@ const HeaderUserAccount = () => {
                                 Categorías
                             </li>
                         </NavLink>
-                        <NavLink to=' ' className={activeRouteNavLink}>
+                        <NavLink to='products' className={activeRouteNavLink}>
                             <li>
                                 Productos
                             </li>
                         </NavLink>
-                        <NavLink to=' ' className={activeRouteNavLink}>
+                        <NavLink to='catalogs' className={activeRouteNavLink}>
                             <li>
                                 Catálogos
                             </li>

@@ -8,9 +8,9 @@ import useSessionUserStore from "../../stores/useSessionUserStore";
 
 const UserSessionContainer = () => {
     const [ headerUIMode, setHeaderUIMode ] = useState(false);
-    const { getAllCategories} = useSessionUserStore(
-        useShallow(({ getAllCategories}) => ({
-             getAllCategories
+    const { getAllCategories } = useSessionUserStore(
+        useShallow(({ getAllCategories }) => ({
+            getAllCategories
         }))
     );
     const refRequests = useRef(false);
