@@ -33,10 +33,6 @@ const CategoriesUser = () => {
         orderCategories(selectedTypeOrder);
     },[selectedTypeOrder]);
 
-    useEffect(() => {
-        console.log(userCategories);
-    },[userCategories]);
-
     return (
         <div className="space-y-6">
             <div className="px-6 py-2 bg-white rounded-md">
