@@ -9,6 +9,7 @@ const authUser = require('../../middlewares/authUser.js');
 const getUser = require('./handlers/userHandlers/getUser.js');
 const updateDataUser = require('./handlers/userHandlers/updateDataUser');
 const userCategoryRouter = require('./userCategoryRouter');
+const userProductRouter = require('./userProductRouter.js');
 
 const UserRouter = Router();
 
@@ -45,6 +46,7 @@ UserRouter.put('/', authUser, updateDataUser);
 
 //? Categories
 UserRouter.use('/category', authUser , userCategoryRouter);
+UserRouter.use('/products', authUser, userProductRouter);
 
 
 //? Export router
