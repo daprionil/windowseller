@@ -12,11 +12,6 @@ module.exports = async function(listProducts, objectUser){
             UserId: id,
             id: clearListProducts,
             deleted: false
-        },
-        attributes: {
-            exclude: [
-                'UserId'
-            ]
         }
     });
 

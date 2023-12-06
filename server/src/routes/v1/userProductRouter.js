@@ -17,9 +17,9 @@ userProductRouter.route('/:productId')
 userProductRouter.route('/')
     .post(createProductHandler)//Create a product ✅
     .get(getEveryProductsHandler)//Get all products by user ✅
-    .delete(deleteProductHandler);//Deleted products
+    .delete(deleteProductHandler);//Deleted products 
 
-userProductRouter.post('/remove', removeProductsHandler);//Remove some products - change the boolean property deleted
+userProductRouter.post('/remove', removeProductsHandler);//Remove some products - change the boolean property deleted ✅
 
 //* Export router
 module.exports = userProductRouter;
