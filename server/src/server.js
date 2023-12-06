@@ -23,7 +23,7 @@ const optionsCors = {
         callback(CustomErrors.UnAuthorization('Not allowed by CORS'));
     }
 };
-app.use(cors(optionsCors));
+//app.use(cors(optionsCors));
 
 //* ######################
 

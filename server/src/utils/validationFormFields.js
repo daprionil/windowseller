@@ -4,12 +4,13 @@ const valuesErrorsFormFields = {
     description: 'La descripción no puede contener más de 300 carácteres',
     phone: 'El Teléfono no es válido',
     email: 'El Correo Electrónico Ej: example@example.com',
-    password: 'La Contraseña no es válida, Ej: passWW23##'
+    password: 'La Contraseña no es válida, Ej: passWW23##',
 };
 
 const validations = {
     email: email => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email),
     password: password => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?./&])[A-Za-z\d@/.$!%*#?&]{8,}$/g.test(password),
+    url: url => /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/.test(url),
 };
 
 module.exports = {

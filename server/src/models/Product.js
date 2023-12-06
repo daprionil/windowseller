@@ -25,7 +25,23 @@ module.exports = function(database){
         },
         image:{
             type: DataTypes.TEXT,
-            allowNull: false
-        }
+            allowNull: false,
+            validate: {
+                isUrl: true
+            }
+        },
+        avaliable: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
+        },
+        /*//! Administrator contact */
+        enabled: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
+        },
+        deleted: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
     })
 }
