@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaArrowDown19, FaArrowUp91, FaArrowDownWideShort, FaArrowUpShortWide } from 'react-icons/fa6';
-import { typeOrders } from "../../stores/useSessionUserStore";
+import { typeOrders } from "../../stores/useCategoriesUserStore";
 
 const optionsSelected = {
     [typeOrders.countDownProducts]:

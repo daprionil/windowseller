@@ -4,14 +4,14 @@ import { MdAdd } from 'react-icons/md';
 import ListCategories from '../../components/UserSession/ListCategories';
 import showAlert from '../../config/showAlert';
 import FormCreateCategory from '../../components/UserSession/FormCreateCategory';
-import useSessionUserStore, { typeOrders } from '../../stores/useSessionUserStore';
 import Message, { typeMessages } from '../../components/Message';
 import { useEffect, useState } from 'react';
 import FilterOrderCategories from '../../components/UserSession/FilterOrderCategories';
 import { useShallow } from 'zustand/react/shallow';
+import useCategoriesUserStore, { typeOrders } from '../../stores/useCategoriesUserStore';
 
 const CategoriesUser = () => {
-    const {userCategories,orderCategories} = useSessionUserStore(
+    const {userCategories,orderCategories} = useCategoriesUserStore(
         useShallow(({ userCategories, orderCategories }) => ({
             userCategories,
             orderCategories

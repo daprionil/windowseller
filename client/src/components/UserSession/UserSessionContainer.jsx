@@ -4,11 +4,11 @@ import { CiMenuFries } from 'react-icons/ci';
 import { useShallow } from 'zustand/react/shallow';
 
 import HeaderUserAccount from "./HeaderUserAccount"
-import useSessionUserStore from "../../stores/useSessionUserStore";
+import useCategoriesUserStore from "../../stores/useCategoriesUserStore";
 
 const UserSessionContainer = () => {
     const [ headerUIMode, setHeaderUIMode ] = useState(false);
-    const { getAllCategories } = useSessionUserStore(
+    const { getAllCategories } = useCategoriesUserStore(
         useShallow(({ getAllCategories }) => ({
             getAllCategories
         }))

@@ -1,13 +1,13 @@
 import { Formik } from "formik";
 
-import useSessionUserStore from '../../stores/useSessionUserStore.js';
+import useCategoriesUserStore from '../../stores/useCategoriesUserStore.js';
 import Swal from "sweetalert2";
 import { toast } from "../../config/showAlert.js";
 import Message, { typeMessages } from "../Message.jsx";
 import { fieldValidations } from "../../utils/formValidations.js";
 
 const FormCreateCategory = () => {
-    const { createCategoryUser } = useSessionUserStore(({ createCategoryUser }) => ({createCategoryUser}));
+    const { createCategoryUser } = useCategoriesUserStore(({ createCategoryUser }) => ({createCategoryUser}));
 
     return (
         <Formik
@@ -35,7 +35,8 @@ const FormCreateCategory = () => {
                         })
                         resetForm();
                     })
-                    .catch(() => {
+                    .catch((error) => {
+                        console.log(error);
                         //? Display toast
                         toast.fire({
                             icon: 'error',
