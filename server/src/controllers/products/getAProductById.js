@@ -6,5 +6,5 @@ module.exports = async function(productId, objectUser){
         }
     });
     
-    console.log(product);
+    return product[0]?.dataValues;
 };

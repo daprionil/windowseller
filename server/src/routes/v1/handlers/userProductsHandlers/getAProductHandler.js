@@ -13,9 +13,14 @@ module.exports = async function(req, res){
 
         //* get a product
         const productFound = await getAProductById( productId, objectUser );
-        console.log(productFound);
+        
+        //! If the product doesn't exist
+        if(!productFound){
+            throw CustomErrors.NotFound('El producto con dicho Id no ha sido encontrado');
+        };
 
-        res.send('Done');
+        //? Send response to the client
+        res.json(productFound);
     } catch ({status, message}) {
         res.status(status ?? 500).json({
             error: message
