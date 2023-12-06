@@ -12,12 +12,12 @@ const userProductRouter = Router();
 //* Create routes
 userProductRouter.route('/:productId')
     .get(getAProductHandler)//Get a product ✅
-    .put(updateProductHandler)// Update a product
+    .put(updateProductHandler)// Update a product 
 
 userProductRouter.route('/')
     .post(createProductHandler)//Create a product ✅
     .get(getEveryProductsHandler)//Get all products by user ✅
-    .delete(deleteProductHandler);//Deleted products 
+    .delete(deleteProductHandler);//Deleted products ✅
 
 userProductRouter.post('/remove', removeProductsHandler);//Remove some products - change the boolean property deleted ✅
 
