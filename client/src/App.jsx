@@ -13,6 +13,7 @@ import CategoriesUser from './pages/UserSession/CategoriesUser';
 import UserSessionContainer from './components/UserSession/UserSessionContainer';
 import ProductsPage from './pages/ProductsPage';
 import CatalogsPage from './pages/CatalogsPage';
+import ProductDetailsPage from './pages/UserSession/ProductDetailsPage';
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                 <Route path='profile' element={<ProfileUser />}/>
                 <Route path='categories' element={<CategoriesUser />}/>
                 <Route path='products' element={<ProductsPage />}/>
+                <Route path='products/:productId' element={<ProductDetailsPage />}/>
                 <Route path='catalogs' element={<CatalogsPage />}/>
             </Route>
         </Routes>
