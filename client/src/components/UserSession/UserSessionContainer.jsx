@@ -5,14 +5,12 @@ import { useShallow } from 'zustand/react/shallow';
 
 import HeaderUserAccount from "./HeaderUserAccount"
 import useCategoriesUserStore from "../../stores/useCategoriesUserStore";
+import useProductUserStore from "../../stores/useProductUserStore";
 
 const UserSessionContainer = () => {
     const [ headerUIMode, setHeaderUIMode ] = useState(false);
-    const { getAllCategories } = useCategoriesUserStore(
-        useShallow(({ getAllCategories }) => ({
-            getAllCategories
-        }))
-    );
+    const getAllCategories = useCategoriesUserStore(({ getAllCategories }) => getAllCategories);
+    const getAllProducts = useProductUserStore(({getAllProducts}) => getAllProducts);
     const refRequests = useRef(false);
 
     useEffect(() => {
@@ -21,7 +19,8 @@ const UserSessionContainer = () => {
         
         //? STARTS THE APP
         const promisesUserSessionStarts = [
-            getAllCategories()
+            getAllCategories(),
+            getAllProducts()
         ];
         Promise.allSettled(promisesUserSessionStarts).finally(() => {
             refRequests.current = false;
