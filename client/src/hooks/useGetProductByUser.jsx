@@ -11,7 +11,6 @@ const useGetProductByUser = (productId) => {
         const idProduct = parseInt(productId, 16).toString()[0];
         getAProductRequest({usersession, productId: idProduct})
             .then((data) => {
-                console.log(data);
                 setLoading(false);
             })
             .catch(() => {
