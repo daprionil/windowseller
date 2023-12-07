@@ -1,23 +1,25 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useSessionUserStore from '../../stores/useSessionUserStore';
-import getAProductRequest from '../../handlers/getAProductRequest';
 import useGetProductByUser from '../../hooks/useGetProductByUser';
+import Loader from '../../components/Loader';
+import Message, { typeMessages } from '../../components/Message';
 
 
 const ProductDetailsPage = () => {
     const { productId } = useParams();
     const [ loading, product ] = useGetProductByUser(productId);
-    useEffect(() => {
-        const idProduct = parseInt(productId, 16).toString()[0];
-        getAProductRequest({usersession, productId: idProduct})
-            .then(console.log)
-            .catch(console.log)
-            .finally();
-    }, []);
 
     return (
-        <div>ProductDetailsPage</div>
+        <div>
+            {
+                loading ?
+                    <Loader />
+                :   product?.error ?
+                        <div className='bg-gradient-oliver p-2 rounded-md text-center'>
+                            <Message msg={product.error} type={typeMessages.ERROR} />
+                        </div>
+                    :   <p>{JSON.stringify(product)}</p>
+            }
+        </div>
     )
 }
 

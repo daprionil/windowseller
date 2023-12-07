@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import { CiMenuFries } from 'react-icons/ci';
-import { useShallow } from 'zustand/react/shallow';
 
 import HeaderUserAccount from "./HeaderUserAccount"
 import useCategoriesUserStore from "../../stores/useCategoriesUserStore";
