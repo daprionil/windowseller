@@ -5,9 +5,21 @@ import { MdFilterAlt, MdLibraryAdd } from 'react-icons/md';
 import useProductUserStore from "../stores/useProductUserStore";
 import ListProductsUser from '../components/UserSession/ListProductsUser';
 import SearchBar from '../components/SearchBar';
+import showAlert from '../config/showAlert';
+import FormCreateProduct from '../components/UserSession/FormCreateProduct';
 
 const ProductsPage = () => {
     const userProducts = useProductUserStore(({ userProducts }) => userProducts);
+
+    const handleCreateProduct = () => {
+        showAlert.fire({
+            html: <>
+                    <p className='font-black text-xl'>Crea un Producto</p>
+                    <FormCreateProduct />
+                </>,
+            showConfirmButton: false,
+        })
+    };
 
     return (
         <div className="space-y-3">
@@ -38,7 +50,10 @@ const ProductsPage = () => {
                     </button>
                 </div>
                 <div className=" w-full col-span-2 md:col-span-1 h-full">
-                    <button className=" [&>svg]:inline-block w-full md:w-auto btn_base bg-green-600 text-white gap-4 drop-shadow-md h-full">
+                    <button
+                        className=" [&>svg]:inline-block w-full md:w-auto btn_base bg-green-600 text-white gap-4 drop-shadow-md h-full"
+                        onClick={handleCreateProduct}
+                    >
                         <MdLibraryAdd />
                         <p className=' md:hidden text-sm hidden pl-2 sm:inline-block text-white font-bold '>Agregar</p>
                     </button>
