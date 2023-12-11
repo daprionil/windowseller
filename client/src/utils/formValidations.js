@@ -6,7 +6,8 @@ const nameFields = {
     description: 'La descripción',
     phone: 'El teléfono',
     price: 'El precio',
-    name: 'El nombre'
+    name: 'El nombre',
+    image: 'La imagen'
 };
 
 const fieldValidations = {
@@ -23,6 +24,14 @@ const fieldValidations = {
     description: d => (
         d.length <= 500 && d.length > 20
     ),
+    image: (file, types = '') => {
+        const typesList = types.split(',');
+        const validationType = typesList.some((t) => {
+            const regex = new RegExp(file.type.split('/')[1], 'i');
+            return regex.test(t);
+        });
+        return validationType;
+    }
 };
 
 const errorsFieldValidations = {
@@ -31,7 +40,8 @@ const errorsFieldValidations = {
     password2: 'Las contraseñas no coinciden',
     phone: `${nameFields.phone} debe contener de 10 - 14 carácteres`,
     price: `${nameFields.price} no está en el rango válido`,
-    description: `${nameFields.description} no tiene un rango válido`
+    description: `${nameFields.description} no tiene un rango válido`,
+    image: `${nameFields.image} no tiene un formato válido o está vacía`
 };
 
 export {

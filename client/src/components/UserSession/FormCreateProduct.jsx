@@ -1,8 +1,12 @@
 import { Formik } from "formik";
 import Message, { typeMessages } from "../Message";
-import { fieldValidations, nameFields } from "../../utils/formValidations";
+import { errorsFieldValidations, fieldValidations, nameFields } from "../../utils/formValidations";
+import createProductRequest from "../../handlers/createProductRequest";
+import useSessionUserStore from "../../stores/useSessionUserStore";
 
 const FormCreateProduct = () => {
+    const usersession = useSessionUserStore(({usersession}) => usersession);
+
     return (
         <Formik
             initialValues={{
@@ -12,8 +16,6 @@ const FormCreateProduct = () => {
                 image: ''
             }}
             validate={(values) => {
-                console.log(values);
-
                 let errors = [];
                 const objValues = Object.entries(values);
                 
@@ -28,18 +30,28 @@ const FormCreateProduct = () => {
                     //* if exist validation
                     const validation = fieldValidations[k];
                     if(validation){
-                        const resultValidation = validation(v);
-                        console.log(resultValidation);
+                        const resultValidation = validation(v, k.toString() === 'image' ? '.png,.jpg,.jpeg' : null);
+                        if(!resultValidation){
+                            errors.push([k, `${errorsFieldValidations[k]}`]);
+                            continue;
+                        }
                     }
                 }
 
                 return Object.fromEntries(errors);
             }}
-            onSubmit={() => {
-                console.log('Eso es');
+            onSubmit={({name, description, price, image}) => {
+                const dataForm = new FormData();
+                //? Set values into form object
+                for(let [k,v] of Object.entries({name, description, price, image})){
+                    dataForm.append(k,v);
+                }
+                //? Generate the request to create a new Product by User
+                createProductRequest({usersession, formData: dataForm})
+                    .then(console.log);
             }}
         >
-            {({ values, errors, handleChange, resetForm, isSubmitting, handleSubmit }) => {
+            {({ values, errors, handleChange, isSubmitting, handleSubmit, setFieldValue}) => {
                 return (
                     <form className='space-y-2' onSubmit={handleSubmit}>
                         <label className='block'>
@@ -92,13 +104,17 @@ const FormCreateProduct = () => {
                                 type="file"
                                 name="image"
                                 accept=".png,.jpg,.jpeg"
-                                onChange={handleChange}
-                                value={values.image}
+                                onChange={(evt) => {
+                                    const file = evt.target.files[0];
+                                    if(file){
+                                        setFieldValue('image', file);
+                                    }
+                                }}
                                 className='border-2 border-black border-dotted [&::file-selector-button]:border-none [&:hover::file-selector-button]:bg-blue-500 [&::file-selector-button]:transition [&::file-selector-button]:duration-200 [&::file-selector-button]:ease-out cursor-pointer [&::file-selector-button]:bg-blue-600 [&::file-selector-button]:px-4 [&::file-selector-button]:py-2 [&::file-selector-button]:rounded-md [&::file-selector-button]:text-white [&::file-selector-button]:font-black w-full block p-4 bg-blue-100 rounded-md'
                             />
                             <div className="text-sm">
                                 {
-                                errors.image && <Message msg={errors.image} type={typeMessages.ERROR}/>
+                                    errors.image && <Message msg={errors.image} type={typeMessages.ERROR}/>
                             }
                             </div>
                         </label>

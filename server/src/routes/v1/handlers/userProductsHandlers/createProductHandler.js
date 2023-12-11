@@ -5,6 +5,7 @@ const { validations } = require("../../../../utils/validationFormFields");
 module.exports = async function(req, res){
     try {
         const { name, description, price, image } = req.body;
+        console.log(req.body, req.files);
         const objectUser = res.locals.userAuthorizate;
 
         //* Validate if exist the necesary values to create a product

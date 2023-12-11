@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const multer = require('multer');
 const rootRouter = require('./routes/rootRouter.js');
 const cors = require('cors');
 const CustomErrors = require('./utils/errors/CustomErrors.js');
@@ -9,6 +10,7 @@ const app = new express();
 //! Define middlewares
 
 app.use(morgan('dev'));
+app.use(express.urlencoded());
 app.use(express.json())
 
 //* CORS configuration
@@ -28,6 +30,6 @@ app.use(cors(optionsCors));
 //* ######################
 
 //! Define routes
-app.use(rootRouter);
+app.use(rootRouter, multer().none());
 
 module.exports = app;
