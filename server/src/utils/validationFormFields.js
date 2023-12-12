@@ -9,8 +9,7 @@ const valuesErrorsFormFields = {
 
 const validations = {
     email: email => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email),
-    password: password => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?./&])[A-Za-z\d@/.$!%*#?&]{8,}$/g.test(password),
-    url: url => /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/.test(url),
+    password: password => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?./&])[A-Za-z\d@/.$!%*#?&]{8,}$/g.test(password)
 };
 
 module.exports = {

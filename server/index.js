@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { db:conndb } = require('./src/database.js');
 const app = require('./src/server.js');
+require('./src/config/cloudinaryConfig.js');
 
 const PORT = process.env.PORT_SERVER || 3000;
 

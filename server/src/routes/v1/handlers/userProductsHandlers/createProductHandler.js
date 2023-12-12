@@ -4,8 +4,9 @@ const { validations } = require("../../../../utils/validationFormFields");
 
 module.exports = async function(req, res){
     try {
-        const { name, description, price, image } = req.body;
-        console.log(req.body, req.files);
+        const { name, description, price } = req.body;
+        const { image } = req.files;
+
         const objectUser = res.locals.userAuthorizate;
 
         //* Validate if exist the necesary values to create a product
@@ -17,7 +18,10 @@ module.exports = async function(req, res){
         };
 
         //* Validate image URL format
-        const validationImageUrl = validations.url(image);
+        const validationImageUrl = typeof image === 'object' ?
+                (!!image.name && !!image.size && !!image.type && !!image.path)
+            : false;
+        
         if(!validationImageUrl){
             throw CustomErrors.SintaxError('La imágen no tiene un formato válido');
         };
@@ -32,7 +36,9 @@ module.exports = async function(req, res){
         const createdProduct = await createProduct({ name, description, price, image }, objectUser);
 
         res.json({ createdProduct });
-    } catch ({status, message}) {
+    } catch (error) {
+        console.log(error);
+        const {status, message} = error;
         res.status(status ?? 500).json({
             error: message
         })
