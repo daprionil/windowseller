@@ -1,13 +1,17 @@
 const uploadImageController = require("../uploadImageController");
 
-module.exports = async function({ name, description, price, image },objectUser){
-    const uploadedImageUrl = await uploadImageController(image);
-    console.log(uploadedImageUrl);
-    return;
+module.exports = async function({ name, description, price, image }, objectUser){
+    //* Upload image to get the URL
+    const uploadedImage = await uploadImageController(image);
 
-    const dataToCreate = { name, description, price, image: uploadedImageUrl };
+    //* Centralize data to create the Product
+    const dataToCreate = { name, description, price, image: uploadedImage.secure_url };
+    
+    //* Create product in DB
     const createdProduct = await objectUser.createProduct(dataToCreate);
     
-    const { UserId, ...rest } = createdProduct.dataValues;
-    return rest;
+    //* Extract important values of the product created
+    const { UserId, ...productCreated } = createdProduct.dataValues;
+
+    return productCreated;
 };

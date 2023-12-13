@@ -17,12 +17,13 @@ module.exports = async function(req, res){
             throw CustomErrors.SintaxError('Faltan campos por recibir para la creación de producto');
         };
 
-        //* Validate image URL format
-        const validationImageUrl = typeof image === 'object' ?
+        //* Validate image object
+        const validationImage = typeof image === 'object' ?
                 (!!image.name && !!image.size && !!image.type && !!image.path)
-            : false;
+            :   
+                false;
         
-        if(!validationImageUrl){
+        if(!validationImage){
             throw CustomErrors.SintaxError('La imágen no tiene un formato válido');
         };
 
