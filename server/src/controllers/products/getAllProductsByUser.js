@@ -4,7 +4,10 @@ module.exports = async function(objectUser){
             exclude: [
                 'UserId'
             ]
-        }
+        },
+        order: [
+            [ 'createdAt', 'DESC' ]
+        ]
     });
     
     //* If not exist products of the user

@@ -1,19 +1,50 @@
+import { useRef } from 'react';
 import { GrUpdate } from 'react-icons/gr';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { MdFilterAlt, MdLibraryAdd } from 'react-icons/md';
 
 import ListProductsUser from '../components/UserSession/ListProductsUser';
 import SearchBar from '../components/SearchBar';
-import showAlert from '../config/showAlert';
+import showAlert, { toast } from '../config/showAlert';
 import FormCreateProduct from '../components/UserSession/FormCreateProduct';
+import useProductUserStore from '../stores/useProductUserStore';
 
 const ProductsPage = () => {
+    const getAllProducts = useProductUserStore(({getAllProducts}) => getAllProducts);
+    const isUpdatedRequestProducts = useRef(false);
+
+    //* Display the modal to create a new Product
     const handleCreateProduct = () => {
         showAlert.fire({
             html: <FormCreateProduct />,
             showConfirmButton: false,
-        })
+        });
     };
+
+    //* Update products from database
+    const handleSendRequestToUpdateProducts = () => {
+        //* Starts the request and set value to prevent redundant send
+        if(isUpdatedRequestProducts.current) return;
+        isUpdatedRequestProducts.current = true;
+
+        //* Starst the request
+        getAllProducts()
+            .then(() => {
+                toast.fire({
+                    icon: 'success',
+                    title: 'Se han actualizado los productos'
+                })
+            })
+            .catch(() => {
+                toast.fire({
+                    icon: 'error',
+                    title: 'No ha sido posible recuperar los productos'
+                })
+            })
+            .finally(() => {
+                isUpdatedRequestProducts.current = false;
+            })
+    }
 
     return (
         <div className="space-y-3">
@@ -32,7 +63,11 @@ const ProductsPage = () => {
                     </button>
                 </div>
                 <div className=" w-full col-span-2 md:col-span-1 h-full">
-                    <button className=" [&>svg]:inline-block w-full md:w-auto btn_base h-full bg-cyan-600 gap-4 text-white drop-shadow-md">
+                    <button
+                        className=" [&>svg]:inline-block w-full md:w-auto btn_base h-full bg-cyan-600 gap-4 text-white drop-shadow-md"
+                        disabled={isUpdatedRequestProducts.current}
+                        onClick={handleSendRequestToUpdateProducts}
+                    >
                         <GrUpdate />
                         <p className=' md:hidden text-sm hidden pl-2 sm:inline-block text-white font-bold '>Actualizar</p>
                     </button>
