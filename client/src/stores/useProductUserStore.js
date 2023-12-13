@@ -1,12 +1,26 @@
 import { create } from 'zustand';
 import useSessionUserStore from './useSessionUserStore';
 import getAllProductsRequest from '../handlers/getAllProductsRequest';
+import createProductRequest from '../handlers/createProductRequest';
 
 const useProductUserStore = create((set, get) => ({
     userProducts: [],
     removedProducts: [],
-    createNewProduct: () => {
+    createNewProduct: async (formData) => {
+        const usersession = useSessionUserStore.getState().usersession;
         
+        if(!usersession) return;
+        //* Send request to create the product
+        const { data } = await createProductRequest({formData, usersession});
+        
+        //* If the product was not received
+        const productCreated = data.createdProduct;
+        if(!productCreated) throw new Error();
+
+        //* If the product was created successfully set in the store
+        set(({userProducts}) => ({
+            userProducts: [productCreated, ...userProducts]
+        }), false);
     },
     getAllProducts: async () => {
         const usersession = useSessionUserStore.getState().usersession;

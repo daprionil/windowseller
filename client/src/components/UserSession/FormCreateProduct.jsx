@@ -1,11 +1,14 @@
 import { Formik } from "formik";
+import Swal from 'sweetalert2';
+
 import Message, { typeMessages } from "../Message";
 import { errorsFieldValidations, fieldValidations, nameFields } from "../../utils/formValidations";
-import createProductRequest from "../../handlers/createProductRequest";
-import useSessionUserStore from "../../stores/useSessionUserStore";
+import useProductUserStore from "../../stores/useProductUserStore";
+import { toast } from "../../config/showAlert";
+import Loader from "../Loader";
 
 const FormCreateProduct = () => {
-    const usersession = useSessionUserStore(({usersession}) => usersession);
+    const createNewProduct = useProductUserStore(({createNewProduct}) => createNewProduct);
 
     return (
         <Formik
@@ -40,20 +43,46 @@ const FormCreateProduct = () => {
 
                 return Object.fromEntries(errors);
             }}
-            onSubmit={({name, description, price, image}) => {
+            onSubmit={({name, description, price, image}, {resetForm, setSubmitting}) => {
+                setSubmitting(true);
                 const dataForm = new FormData();
                 //? Set values into form object
                 for(let [k,v] of Object.entries({name, description, price, image})){
                     dataForm.append(k,v);
                 }
+
                 //? Generate the request to create a new Product by User
-                createProductRequest({usersession, formData: dataForm})
-                    .then(console.log);
+                createNewProduct(dataForm)
+                    .then(() => {
+                        
+
+                        //* Display toast
+                        toast.fire({
+                            title: 'Producto creado correctamente',
+                            icon: 'success'
+                        })
+                    })
+                    .catch(() => {
+                        toast.fire({
+                            title: 'El producto no ha sido creado',
+                            text:'Intentalo más tarde',
+                            icon: 'error'
+                        })
+                    })
+                    .finally(() => {
+                        setSubmitting(false);
+                        //* Reset Form
+                        resetForm();
+                        
+                        //* Close Modal
+                        Swal.close();
+                    });
             }}
         >
             {({ values, errors, handleChange, isSubmitting, handleSubmit, setFieldValue}) => {
                 return (
                     <form className='space-y-2' onSubmit={handleSubmit}>
+                        <p className='font-black text-xl'>Crea un Producto</p>
                         <label className='block'>
                             <input
                                 type="text"
@@ -119,13 +148,19 @@ const FormCreateProduct = () => {
                             </div>
                         </label>
                         <label className='block [&>button]:bg-blue-500'>
-                            <button
-                                type='submit'
-                                className="btn_base btn_base_hover text-white font-black text-xl"
-                                disabled={isSubmitting}
-                            >
-                                Crear
-                            </button>
+                            {
+                                !isSubmitting ?
+                                    <button
+                                        type='submit'
+                                        className="btn_base btn_base_hover text-white font-black text-xl"
+                                    >
+                                        Crear
+                                    </button>
+                                :
+                                    <div className="pt-2">
+                                        <Loader />
+                                    </div>
+                            }
                         </label>
                     </form>
                 )

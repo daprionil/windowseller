@@ -2,21 +2,15 @@ import { GrUpdate } from 'react-icons/gr';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { MdFilterAlt, MdLibraryAdd } from 'react-icons/md';
 
-import useProductUserStore from "../stores/useProductUserStore";
 import ListProductsUser from '../components/UserSession/ListProductsUser';
 import SearchBar from '../components/SearchBar';
 import showAlert from '../config/showAlert';
 import FormCreateProduct from '../components/UserSession/FormCreateProduct';
 
 const ProductsPage = () => {
-    const userProducts = useProductUserStore(({ userProducts }) => userProducts);
-
     const handleCreateProduct = () => {
         showAlert.fire({
-            html: <>
-                    <p className='font-black text-xl'>Crea un Producto</p>
-                    <FormCreateProduct />
-                </>,
+            html: <FormCreateProduct />,
             showConfirmButton: false,
         })
     };
@@ -59,7 +53,7 @@ const ProductsPage = () => {
                     </button>
                 </div>
             </div>
-            <ListProductsUser userProducts={userProducts} />
+            <ListProductsUser handleCreateProduct={handleCreateProduct}/>
         </div>
     );
 };
