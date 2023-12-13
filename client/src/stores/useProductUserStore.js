@@ -19,7 +19,7 @@ const useProductUserStore = create((set, get) => ({
 
         //* If the product was created successfully set in the store
         set(({userProducts}) => ({
-            userProducts: [productCreated, ...userProducts]
+            userProducts: [...userProducts, productCreated]
         }), false);
     },
     getAllProducts: async () => {
