@@ -54,7 +54,11 @@ const FormCreateProduct = () => {
                 //? Generate the request to create a new Product by User
                 createNewProduct(dataForm)
                     .then(() => {
+                        //* Reset Form
+                        resetForm();
                         
+                        //* Close Modal
+                        Swal.close();
 
                         //* Display toast
                         toast.fire({
@@ -70,12 +74,7 @@ const FormCreateProduct = () => {
                         })
                     })
                     .finally(() => {
-                        setSubmitting(false);
-                        //* Reset Form
-                        resetForm();
-                        
-                        //* Close Modal
-                        Swal.close();
+                        setSubmitting(false);    
                     });
             }}
         >

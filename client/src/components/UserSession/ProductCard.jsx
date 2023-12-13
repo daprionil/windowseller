@@ -6,8 +6,6 @@ const ProductCard = ({ id, image, price, description, name, createdAt }) => {
     const idProductPath = Number(
         id.toString() + ((new Date(createdAt)).getTime().toString())
     ).toString(16);
-
-    console.log(idProductPath);
     
     return (
         <div
