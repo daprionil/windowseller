@@ -13,7 +13,7 @@ const ProductCard = ({ id, image, price, description, name, createdAt }) => {
         >
             <div className='col-span-4 h-full max-h-[205px] md:col-span-3 shadow'>
                 <img
-                    className='object-cover w-full h-full md:h-52 md:w-52'
+                    className='object-cover w-full h-full md:h-52'
                     src={image}
                     alt={`window_seller_${name}`}
                 />
@@ -25,7 +25,7 @@ const ProductCard = ({ id, image, price, description, name, createdAt }) => {
                 <p><span className='font-bold'>Precio: </span>{formatPrice(price)}</p>
             </div>
             <div className='px-4 py-2 col-span-3 flex items-center justify-center'>
-                <Link to={`/account/products/${idProductPath}`} className='btn_base btn_base_hover bg-blue-400 text-white font-black group-hover:opacity-100 transition-all duration-300 opacity-0'>
+                <Link to={`/account/products/${idProductPath}`} className='btn_base btn_base_hover bg-blue-400 text-white font-black group-hover:opacity-100 transition-all duration-300 opacity-10 text-center'>
                     Ver Detalles
                 </Link>
             </div>

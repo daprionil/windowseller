@@ -58,7 +58,7 @@ const useProductUserStore = create((set, get) => ({
     },
     removeProducts: () => {
 
-    }
+    },
 }));
 
 export default useProductUserStore;

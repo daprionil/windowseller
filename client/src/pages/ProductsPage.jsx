@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { GrUpdate } from 'react-icons/gr';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { MdFilterAlt, MdLibraryAdd } from 'react-icons/md';
+import  { useShallow } from 'zustand/react/shallow'
 
 import ListProductsUser from '../components/UserSession/ListProductsUser';
 import SearchBar from '../components/SearchBar';
@@ -10,7 +11,12 @@ import FormCreateProduct from '../components/UserSession/FormCreateProduct';
 import useProductUserStore from '../stores/useProductUserStore';
 
 const ProductsPage = () => {
-    const getAllProducts = useProductUserStore(({getAllProducts}) => getAllProducts);
+    const {getAllProducts, userProducts} = useProductUserStore(
+        useShallow(({getAllProducts, userProducts}) => ({getAllProducts, userProducts}))
+    )
+
+    const [ productsFiltered, setProductsFiltered ] = useState(null);
+    const [ searchProductsValue, setSearchProductsValue ] = useState('');
     const isUpdatedRequestProducts = useRef(false);
 
     //* Display the modal to create a new Product
@@ -43,8 +49,20 @@ const ProductsPage = () => {
             })
             .finally(() => {
                 isUpdatedRequestProducts.current = false;
-            })
-    }
+            });
+    };
+
+    useEffect(() => {
+        if(!Array.isArray(userProducts) || !userProducts) return;
+        
+        //* Filter values
+        const valuesFiltered = userProducts.filter( ({name}) => {
+            const regex = new RegExp(`${searchProductsValue ?? ''}`, 'i');
+            return regex.test(name);
+        });
+        
+        setProductsFiltered(valuesFiltered);
+    },[searchProductsValue, userProducts]);
 
     return (
         <div className="space-y-3">
@@ -54,7 +72,10 @@ const ProductsPage = () => {
             <div className="py-2 grid grid-cols-8 md:grid-cols-12 gap-4">
                 <div className="col-span-8">
                     {/* Generate funcionality to filter the products by name */}
-                    <SearchBar />
+                    <SearchBar
+                        valueSearch={searchProductsValue}
+                        setValueSearch={setSearchProductsValue}
+                    />
                 </div>
                 <div className=" w-full col-span-2 md:col-span-1 h-full">
                     <button className=" [&>svg]:inline-block w-full md:w-auto btn_base bg-white drop-shadow-md gap-4 h-full">
@@ -88,7 +109,10 @@ const ProductsPage = () => {
                     </button>
                 </div>
             </div>
-            <ListProductsUser handleCreateProduct={handleCreateProduct}/>
+            <ListProductsUser
+                handleCreateProduct={handleCreateProduct}
+                userProductsProps={productsFiltered}
+            />
         </div>
     );
 };
