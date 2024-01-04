@@ -2,21 +2,21 @@ import { useEffect, useRef, useState } from 'react';
 import { GrUpdate } from 'react-icons/gr';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { MdFilterAlt, MdLibraryAdd } from 'react-icons/md';
-import  { useShallow } from 'zustand/react/shallow'
+import { useShallow } from 'zustand/react/shallow'
 
-import ListProductsUser from '../components/UserSession/ListProductsUser';
-import SearchBar from '../components/SearchBar';
-import showAlert, { toast } from '../config/showAlert';
-import FormCreateProduct from '../components/UserSession/FormCreateProduct';
-import useProductUserStore from '../stores/useProductUserStore';
+import ListProductsUser from '@/pages/UserSession/ProductsPage/components/ListProductsUser.jsx';
+import SearchBar from '@/components/SearchBar';
+import showAlert, { toast } from '@/config/showAlert';
+import FormCreateProduct from '@/pages/UserSession/ProductsPage/components/FormCreateProduct.jsx';
+import useProductUserStore from '@/pages/UserSession/ProductsPage/store/useProductUserStore.js';
 
 const ProductsPage = () => {
-    const {getAllProducts, userProducts} = useProductUserStore(
-        useShallow(({getAllProducts, userProducts}) => ({getAllProducts, userProducts}))
+    const { getAllProducts, userProducts } = useProductUserStore(
+        useShallow(({ getAllProducts, userProducts }) => ({ getAllProducts, userProducts }))
     )
 
-    const [ productsFiltered, setProductsFiltered ] = useState(null);
-    const [ searchProductsValue, setSearchProductsValue ] = useState('');
+    const [productsFiltered, setProductsFiltered] = useState(null);
+    const [searchProductsValue, setSearchProductsValue] = useState('');
     const isUpdatedRequestProducts = useRef(false);
 
     //* Display the modal to create a new Product
@@ -30,7 +30,7 @@ const ProductsPage = () => {
     //* Update products from database
     const handleSendRequestToUpdateProducts = () => {
         //* Starts the request and set value to prevent redundant send
-        if(isUpdatedRequestProducts.current) return;
+        if (isUpdatedRequestProducts.current) return;
         isUpdatedRequestProducts.current = true;
 
         //* Starst the request
@@ -53,16 +53,16 @@ const ProductsPage = () => {
     };
 
     useEffect(() => {
-        if(!Array.isArray(userProducts) || !userProducts) return;
-        
+        if (!Array.isArray(userProducts) || !userProducts) return;
+
         //* Filter values
-        const valuesFiltered = userProducts.filter( ({name}) => {
+        const valuesFiltered = userProducts.filter(({ name }) => {
             const regex = new RegExp(`${searchProductsValue ?? ''}`, 'i');
             return regex.test(name);
         });
-        
+
         setProductsFiltered(valuesFiltered);
-    },[searchProductsValue, userProducts]);
+    }, [searchProductsValue, userProducts]);
 
     return (
         <div className="space-y-3">

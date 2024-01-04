@@ -1,23 +1,23 @@
 import { IconContext } from 'react-icons/lib';
 import { MdAdd } from 'react-icons/md';
 
-import ListCategories from '../../components/UserSession/ListCategories';
-import showAlert from '../../config/showAlert';
-import FormCreateCategory from '../../components/UserSession/FormCreateCategory';
-import Message, { typeMessages } from '../../components/Message';
+import ListCategories from '@/components/UserSession/ListCategories';
+import showAlert from '@/config/showAlert';
+import FormCreateCategory from '@/components/UserSession/FormCreateCategory';
+import Message, { typeMessages } from '@/components/Message';
 import { useEffect, useState } from 'react';
-import FilterOrderCategories from '../../components/UserSession/FilterOrderCategories';
+import FilterOrderCategories from '@/components/UserSession/FilterOrderCategories';
 import { useShallow } from 'zustand/react/shallow';
-import useCategoriesUserStore, { typeOrders } from '../../stores/useCategoriesUserStore';
+import useCategoriesUserStore, { typeOrders } from '@/stores/useCategoriesUserStore';
 
 const CategoriesUser = () => {
-    const {userCategories,orderCategories} = useCategoriesUserStore(
+    const { userCategories, orderCategories } = useCategoriesUserStore(
         useShallow(({ userCategories, orderCategories }) => ({
             userCategories,
             orderCategories
         }))
     );
-    const [selectedTypeOrder, setSelectedTypeOrder ] = useState(typeOrders.downCreated);
+    const [selectedTypeOrder, setSelectedTypeOrder] = useState(typeOrders.downCreated);
 
     const handleClickCreateCategory = () => {
         showAlert.fire({
@@ -31,7 +31,7 @@ const CategoriesUser = () => {
     useEffect(() => {
         //! Set here filters
         orderCategories(selectedTypeOrder);
-    },[selectedTypeOrder]);
+    }, [selectedTypeOrder]);
 
     return (
         <div className="space-y-6">

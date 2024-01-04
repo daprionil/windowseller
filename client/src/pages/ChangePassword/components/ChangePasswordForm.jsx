@@ -1,11 +1,11 @@
 import { Formik } from "formik";
-import { errorsFieldValidations, fieldValidations, nameFields } from "../utils/formValidations";
-import Message, { typeMessages } from "./Message";
-import changePasswordRequest from "../handlers/changePasswordRequest";
+import { errorsFieldValidations, fieldValidations, nameFields } from "../../../utils/formValidations";
+import Message, { typeMessages } from "../../../components/Message";
+import changePasswordRequest from "../../../handlers/changePasswordRequest";
 import { useState } from "react";
-import Loader from "./Loader";
-import SuccessIcon from '../components/SuccessIcon';
-import LogInButton from "./LogInButton";
+import Loader from "../../../components/Loader";
+import SuccessIcon from '../../../components/SuccessIcon';
+import LogInButton from "../../../components/LogInButton";
 
 const ChangePasswordForm = ({ tokenId }) => {
     const [statusRequest, setStatusRequest] = useState(false);

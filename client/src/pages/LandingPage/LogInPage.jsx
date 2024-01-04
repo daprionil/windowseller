@@ -3,7 +3,7 @@ import LogInForm from "../../components/LandingPage/LogInForm"
 import useSessionUserStore from "../../stores/useSessionUserStore"
 
 const LogInPage = () => {
-    const userSession = useSessionUserStore(({usersession}) => usersession);
+    const userSession = useSessionUserStore(({ usersession }) => usersession);
 
     return (
         !userSession ?
@@ -17,7 +17,7 @@ const LogInPage = () => {
                     <LogInForm />
                 </div>
             </div>
-        :   <Navigate to='/account' replace/>
+            : <Navigate to='/account' replace />
     )
 }
 

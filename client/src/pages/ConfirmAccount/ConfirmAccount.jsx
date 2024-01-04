@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useParams } from "react-router-dom"
 
-import confirmUserAccountRequest from "../handlers/confirmUserAccountRequest";
-import WindowSellerIcon from "../components/WindowSellerIcon";
-import LogInButton from '../components/LogInButton';
-import Loader from "../components/Loader";
-import SignInButton from "../components/SignInButton";
-import SuccessIcon from "../components/SuccessIcon";
+import confirmUserAccountRequest from "@/handlers/confirmUserAccountRequest";
+import WindowSellerIcon from "@/components/WindowSellerIcon";
+import LogInButton from '@/components/LogInButton';
+import Loader from "@/components/Loader";
+import SignInButton from "@/components/SignInButton";
+import SuccessIcon from "@/components/SuccessIcon";
 
 const ConfirmAccout = () => {
     const { tokenId } = useParams();
 
     const [loading, setLoading] = useState(false);
-    const [statusConfirm, setStatusConfirm] = useState({status: undefined, msg:''});
+    const [statusConfirm, setStatusConfirm] = useState({ status: undefined, msg: '' });
     const refEjecution = useRef(false);
 
     useEffect(() => {
@@ -21,8 +21,8 @@ const ConfirmAccout = () => {
 
         refEjecution.current = true;
         confirmUserAccountRequest({ tokenId })
-            .then(({data}) => {
-                if(data.confirmed){
+            .then(({ data }) => {
+                if (data.confirmed) {
                     setStatusConfirm({
                         status: true,
                         msg: '¡Tu cuenta ha sido confirmada!'
@@ -31,7 +31,7 @@ const ConfirmAccout = () => {
             })
             .catch(({ response: { data } }) => {
                 if (data.error) {
-                    setStatusConfirm({status: false, msg: data.error});
+                    setStatusConfirm({ status: false, msg: data.error });
                     return;
                 }
                 setStatusConfirm({
@@ -54,7 +54,7 @@ const ConfirmAccout = () => {
                     <nav>
                         <ul className="flex items-center flex-nowrap space-x-3 font-semibold">
                             <li>
-                                <NavLink to='/' className={({isActive}) => isActive ? 'underline' : 'no-underline'}>
+                                <NavLink to='/' className={({ isActive }) => isActive ? 'underline' : 'no-underline'}>
                                     Inicio
                                 </NavLink>
                             </li>
@@ -68,7 +68,7 @@ const ConfirmAccout = () => {
                         <div className=" mx-auto w-min drop-shadow">
                             <Loader />
                         </div>
-                    : statusConfirm.status ?
+                        : statusConfirm.status ?
                             <div className="space-y-5">
                                 <h2 className="text-center text-2xl font-bold border-b-2 border-opacity-40 border-yellow-600">
                                     ¡Que bueno saber que estás <span className="text-yellow-500 font-black">Aquí!</span>

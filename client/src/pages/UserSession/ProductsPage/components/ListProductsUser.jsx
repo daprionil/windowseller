@@ -1,5 +1,5 @@
-import useProductUserStore from '../../stores/useProductUserStore';
-import ProductCard from './ProductCard';
+import useProductUserStore from '../store/useProductUserStore';
+import ProductCard from '../../../components/UserSession/ProductCard';
 
 const ListProductsUser = ({ handleCreateProduct, userProductsProps }) => {
     const userProducts = useProductUserStore(({ userProducts }) => userProducts);
